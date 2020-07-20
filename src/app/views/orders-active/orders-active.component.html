@@ -1,0 +1,97 @@
+<div class="container mt-3">
+
+    <div class="row">
+        <div class="col-sm-12">
+                <div class="lead">Venta</div>
+                <div class="text-muted small">Ingresar datos de una nueva venta</div>
+        </div>
+    </div>
+
+    <div class="equam-border mt-3 p-3">
+        <div class="text-muted">Información de la venta</div>
+        <div class="row mt-3">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" for="classsequence">Tipo de venta</label>
+                    <select class="custom-select" id="status" [(ngModel)]="tipodeventa">
+                        <option selected>Seleccione una opción...</option>
+                        <option value="particular">Particular</option>
+                        <option value="empresa">Empresa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-6" *ngIf="tipodeventa == 'particular'">
+                <div class="form-group">
+                    <label class="control-label" for="classsequence">Medio de contacto</label>
+                    <select class="custom-select" [(ngModel)]="medio">
+                        <option>Instagram</option>
+                        <option>Facebook</option>
+                        <option>Página web</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-6" *ngIf="tipodeventa == 'empresa'">
+                <div class="form-group">
+                    <label class="control-label" for="classsequence">Empresa</label>
+                    <select class="custom-select" [(ngModel)]="plan">
+                        <option>Peponas</option>
+                        <option>Soma</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt-3 animate__animated animate__slideInUp" *ngIf="plan == 'Peponas'">
+
+            <div class="col-sm-6" *ngIf="tipodeventa == 'empresa'">
+                <div class="form-group">
+                    <label class="control-label" for="classsequence">Plan</label>
+                    <select class="custom-select">
+                        <option>Remera por árbol</option>
+                        <option>Palos por dos árboles</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="equam-border mt-3 p-3 animate__animated animate__slideInUp" *ngIf="medio == 'Instagram'   ">
+        <div class="text-muted">Información del cliente</div>
+
+        <div class="row mt-3">
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="name">Nombre</label>
+                    <input id="name" type="text" class="form-control input-md" required="">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="name">Apellido</label>
+                    <input id="surname" type="text" class="form-control input-md" required="">
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="name">Correo</label>
+                    <input id="email" type="email" class="form-control input-md" required="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+

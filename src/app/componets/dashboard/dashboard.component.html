@@ -1,0 +1,95 @@
+<div class="container mt-3">
+
+    <div>
+        <h5 class="card-title display-4 animate__animated animate__pulse">Hola, Santiago!</h5>
+        <p class="card-text lead">Hoy es un buen día para plantar un árbol</p>
+    </div>
+
+    <!-- basic dashboard -->
+    <div class="card-deck mt-4">
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-tree"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">300</h2>
+                        <p class="card-text text-muted">árboles plantados</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fab fa-pagelines"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">1452</h2>
+                        <p class="card-text text-muted">árboles listos</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-seedling"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">23569</h2>
+                        <p class="card-text text-muted">árboles creciendo</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+    </div>
+
+    <!-- adbanced dashboard -->
+
+    <div class="card-deck my-4">
+
+        <div class="card p-1 bg-light">
+
+            <p class="lead text-center equam-color">Pedidos</p>
+
+            <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+
+        </div>
+
+        <div class="card p-1 bg-light">
+
+            <p class="lead text-center equam-color">Sembrados</p>
+
+            <canvas baseChart 
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+            
+        </div>
+
+    </div>
+
+</div>

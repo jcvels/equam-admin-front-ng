@@ -1,0 +1,164 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="lead">Receptores</div>
+                <div class="text-muted small">Gestión de los receptores</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-inline ">
+                <input class="equam-input" type="text" placeholder="buscar" (keyup)="filterTable();">
+                <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+        <!-- cabecera -->
+        <div class="border-bottom p-1 mt-3 equam-hover bg-light">
+            <div class="row">
+                <div class="col-sm-2">Nombre</div>
+                <div class="col-sm-3">Razón social</div>
+                <div class="col-sm-3">Télefono</div>
+                <div class="col-sm-3">Email</div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+
+        <!-- datos -->
+        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let destination of destinations">
+            <div class="row">
+                <div class="col-md-2">
+                    {{destination.name}}
+                    <span class="d-block d-sm-block d-md-none float-right">
+                        <i class="fas fa-ellipsis-v" (click)="filterTable();"></i>
+                    </span> 
+                </div>
+                <div class="col-md-3">{{destination.companyname}}</div>
+                <div class="col-md-3">{{destination.phone}}</div>
+                <div class="col-md-3">{{destination.email}}</div>
+                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="edit(destination);"></i></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- modal form -->
+<div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Empresa</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            
+            <div class="form-horizontal">
+
+                <input id="id" type="text" hidden="" [(ngModel)]="formdata.id" > 
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group- lineal">
+                            <label class="control-label" for="classname">Nombre</label>
+                            <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group- lineal">
+                            <label class="control-label" for="classname">Razón social</label>
+                            <input id="companyname" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.companyname">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="control-label" for="classname">Estado</label>
+                        <select class="custom-select" id="status">
+                            <option selected>Seleccione una opción...</option>
+                            <option value="1">Activo</option>
+                            <option value="2">Suspendido</option>
+                            <option value="2">Dado de baja</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="classsequence">Teléfono</label>
+                            <input id="phone" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.phone">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="classsequence">Correo</label>
+                            <input id="email" type="email" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.email">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="equam-hover" data-toggle="collapse" data-target="#address" aria-expanded="false"><i class="far fa-address-book"></i> Dirección</span>
+                    <span class="float-right equam-hover"  data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información</span>
+                </div>
+
+                <div class="collapse border rounder p-1 bg-light mt-2" id="address">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">Calle y altura</label>
+                                <input id="phone" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.address.street">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">Ciudad</label>
+                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.city">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">Código Postal</label>
+                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.postal">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">País</label>
+                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.country">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="collapse border rounder p-1 bg-light mt-2" id="info">
+                    
+                    <p class="small">Creado {{ formdata.address.creation }}</p>
+                    <p class="small">Modificado {{ formdata.address.lastchange }}</p>
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+        </div>
+
+    </div>
+  </div>
+</div>
