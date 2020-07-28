@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductionActiveComponent implements OnInit {
 
+  sinasignar:number = 23;
+
   constructor() { }
 
   ngOnInit(): void {

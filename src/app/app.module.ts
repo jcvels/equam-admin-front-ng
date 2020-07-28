@@ -30,6 +30,7 @@ import { TimelineComponent } from './views/timeline/timeline.component';
 import { ProductionArchiveComponent } from './views/production-archive/production-archive.component';
 import { NotfoundComponent } from './componets/notfound/notfound.component';
 import { TableHeadersComponent } from './utils/table-headers/table-headers.component';
+import { WidgetNumberComponent } from './utils/widget-number/widget-number.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { TableHeadersComponent } from './utils/table-headers/table-headers.compo
     TimelineComponent,
     ProductionArchiveComponent,
     NotfoundComponent,
-    TableHeadersComponent
+    TableHeadersComponent,
+    WidgetNumberComponent
   ],
   imports: [
     BrowserModule,

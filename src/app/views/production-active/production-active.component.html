@@ -4,17 +4,16 @@
                 <div class="lead">Producción</div>
                 <div class="text-muted small">Gestión de los trabajos en curso</div>
         </div>
-        <div class="col-sm-6">
-            <div class="form-inline ">
-                <input class="equam-input" type="text" placeholder="buscar">
-                <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
-            </div>
+        <div class="col-sm-6 card-deck">
+            <app-widget-number [data]="{'title':'sin asignar','number':sinasignar,'class':'fas fa-exclamation-circle'}"></app-widget-number>
+            <app-widget-number [data]="{'title':'producción','number':'123','class':'fas fa-exclamation-circle'}"></app-widget-number>
         </div>
     </div> 
     
-    <div class="row">
+    <div class="row mt-3 p-3 equam-border">
 
-        
+        <div class="text-muted">Espera asignación</div>
+        <app-table-headers [headers] = "[{'name':'Producto','colsize':'4'},{'name':'Estado','colsize':'4'}]"></app-table-headers>
 
     </div>
     
