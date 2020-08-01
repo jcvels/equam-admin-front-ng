@@ -34,6 +34,7 @@ import { ProductionArchiveComponent } from './views/production-archive/productio
 import { NotfoundComponent } from './componets/notfound/notfound.component';
 import { TableHeadersComponent } from './utils/table-headers/table-headers.component';
 import { WidgetNumberComponent } from './utils/widget-number/widget-number.component';
+import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { WidgetNumberComponent } from './utils/widget-number/widget-number.compo
     ProductionArchiveComponent,
     NotfoundComponent,
     TableHeadersComponent,
-    WidgetNumberComponent
+    WidgetNumberComponent,
+    WaitSpinerComponent
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,7 @@
     </div>
     
     <!-- data loading spiner -->
-    <span *ngIf="waiting">Cargando... </span>
+    <app-wait-spiner *ngIf="waiting"></app-wait-spiner>
 
     <div>
 
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-1">
                     {{user.username}}
-                    <span class="d-block d-sm-block d-md-none float-right">
+                    <span class="d-block d-sm-block d-md-none float-right" (click)="clearForm();">
                         <i class="fas fa-ellipsis-v"></i>
                     </span> 
                 </div>
@@ -57,7 +57,7 @@
             
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -112,42 +112,85 @@
                     <span class="float-right equam-hover" *ngIf="formdata.id != 0"  data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información del registro</span>
                     </div>
 
-                    <div class="collapse alert alert-info mt-2" id="coll1">
+                    <div class="alert alert-info mt-2" id="coll1">
 
                         <div class="row">
                             <div class="col-sm-6">
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="admin" [(ngModel)]="formdata.admin">
+                                    <input 
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="root"
+                                        [checked]="formdata.root == '1'"
+                                        (change)="changeValue('root');"
+                                    />
+                                    <label class="custom-control-label" for="root">Root</label>
+                                </div>
+
+                                <div class="custom-control custom-switch">
+                                    <input 
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="admin"
+                                        [checked]="formdata.admin == '1'"
+                                        (change)="changeValue('admin');"
+                                    />
                                     <label class="custom-control-label" for="admin">Administrador</label>
                                 </div>
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="sales" [(ngModel)]="formdata.sales">
+                                    <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="sales"
+                                        [checked]="formdata.sales == '1'"
+                                        (change)="changeValue('sales');"
+                                    />
                                     <label class="custom-control-label" for="sales">Comercialización</label>
                                 </div>
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="production" [(ngModel)]="formdata.production">
+                                    <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="production"
+                                        [checked]="formdata.production == '1'"
+                                        (change)="changeValue('production');"
+                                    />
                                     <label class="custom-control-label" for="production">Producción</label>
                                 </div>
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="productor" [(ngModel)]="formdata.productor">
+                                    <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="productor"
+                                        [checked]="formdata.productor == '1'"
+                                        (change)="changeValue('productor');"
+                                    />
                                     <label class="custom-control-label" for="productor">Productor</label>
                                 </div>
 
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" *ngIf="formdata.id != '0' ">
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="active" [(ngModel)]="formdata.active">
+                                    <input 
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="active"
+                                        [checked]="formdata.active == '1'"
+                                        (change)="changeValue('active');"
+                                    />
                                     <label class="custom-control-label" for="active">Usuario activo</label>
                                 </div>
 
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="needreset" [(ngModel)]="formdata.needreset">
-                                    <label class="custom-control-label" for="needreset">Permitir recuperar cuenta</label>
+                                <hr>
+
+                                <div class="mt-auto mb-0">
+                                    <button class="btn btn-primary btn-sm mr-1" data-dismiss="modal" (click)="passRecovery();" >Restablecer contraseña</button><br>
+                                    <button class="btn btn-danger btn-sm mt-1" data-dismiss="modal" (click)="delete();" >Eliminar usuario</button>
                                 </div>
 
                             </div>
@@ -156,8 +199,11 @@
                     </div>
 
                     <div class="collapse alert alert-info mt-2" id="info">
-                        <p>Creado {{ formdata.creation }}</p>
-                        <p>Modificado {{ formdata.lastchange }}</p>
+                        <p>
+                            Identificador: {{ formdata.id }}
+                            <br>Creado: {{ formdata.creation }}
+                            <br>Modificado: {{ formdata.lastchange }}
+                        </p>
                     </div>
 
                 </div>
@@ -165,8 +211,8 @@
             </div>
   
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary btn-sm" (click)="save();">Guardar</button>
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clearForm();">Cancelar</button>
+              <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="save();">Guardar</button>
           </div>
   
       </div>

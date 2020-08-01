@@ -22,7 +22,8 @@ export class DataProviderService
   /* routes for each data type */
   routes:any = 
   {
-    "users":"//localhost/data/users/" 
+    "users":"//localhost/data/users/",
+    "mails":"//localhost/mailer/send/"
   };
 
   /* event emitters */
@@ -58,10 +59,11 @@ export class DataProviderService
   {
     this.http.post( this.getRoute(route), data, { headers: this.headers } )
     .subscribe( data =>
-    {
-      this.evalResponce( data["responce"], true );
-      this.emitData( route, data["values"] );
-    }); 
+      {
+        this.evalResponce( data["responce"], true );
+        this.list( route );
+      }
+    );
   }
 
   /* update a record */
@@ -69,21 +71,23 @@ export class DataProviderService
   {
     this.http.put( this.getRoute(route), data, { headers: this.headers } )
     .subscribe( data =>
-    {
-      this.evalResponce( data["responce"], true );
-      this.emitData( route, data["values"] );
-    }); 
+      {
+        this.evalResponce( data["responce"], true );
+        this.list( route );
+      }
+    );
   }
 
   /* delete a database record */
   delete( route:string, id:string )
   {
-    this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.headers } )
+    this.http.delete( this.getRoute(route) + "?id=" + id, { headers: this.headers } )
     .subscribe( data =>
-    {
-      this.evalResponce( data["responce"], false );
-      this.emitData( route, data["values"] );
-    });
+      {
+        this.evalResponce( data["responce"], true );
+        this.list( route );
+      }
+    );
   }
 
   /* proporciona la ruta correcta en funcion del tipo de consulta */
@@ -106,6 +110,13 @@ export class DataProviderService
       case 'users': this.usersEventEmitter.emit( data ); break;
       default: break;
     }
+  }
+
+  /* envio de mails */
+  sendMail( data:any )
+  {
+    this.http.post( this.getRoute('mails'), data, { headers: this.headers } )
+    .subscribe( data => console.log( 'Recovery mail sent') );
   }
 
 }
