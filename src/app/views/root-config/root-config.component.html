@@ -1,1 +1,128 @@
-<p>root-config works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3">
+    
+    <div class="row">
+        <div class="col-sm-9">
+                <div class="lead">Configuración del sistema</div>
+                <div class="text-muted small">Canfigure las variables de funcionamiento del sistema.</div>
+        </div>
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="secret" [(ngModel)]="viewSecret">
+            <label class="custom-control-label" for="secret">Mostrar contraseñas</label>
+        </div>
+    </div>
+    
+    <div class="equam-border mt-3 p-3">
+        <div class="text-muted">Aplicación</div>
+        <div class="row mt-1">
+                <div class="col-sm-3">Nombre</div>
+                <div class="col-sm-8 equam-color">{{config[0].value}}</div>
+                <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[0]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Descripción</div>
+            <div class="col-sm-8 equam-color">{{config[1].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[1]);"></i></div>
+        </div>
+    </div>
+
+    <div class="equam-border mt-3 p-3">
+        <div class="text-muted">Rutas de acceso</div>
+        <div class="row mt-1">
+                <div class="col-sm-3">API URL</div>
+                <div class="col-sm-8 equam-color">{{config[2].value}}</div>
+                <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[2]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">App URL</div>
+            <div class="col-sm-8 equam-color">{{config[3].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[3]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Timeline URL</div>
+            <div class="col-sm-8 equam-color">{{config[4].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[4]);"></i></div>
+        </div>
+    </div>
+
+    <div class="equam-border mt-3 p-3">
+        <div class="text-muted">Servicio de correo electrónico</div>
+        <div class="row mt-1">
+                <div class="col-sm-3">SMTP Server</div>
+                <div class="col-sm-8 equam-color">{{config[5].value}}</div>
+                <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[5]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">SMTP Port</div>
+            <div class="col-sm-8 equam-color">{{config[6].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[6]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">SSL</div>
+            <div class="col-sm-8 equam-color">{{config[7].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[7]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Usuario</div>
+            <div class="col-sm-8 equam-color">{{config[8].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[8]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Contraseña</div>
+            <div class="col-sm-8 equam-color">
+                <span *ngIf="viewSecret">{{config[9].value}}</span>
+                <span *ngIf="! viewSecret">( protected information )</span>
+            </div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[9]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Dirección de envío</div>
+            <div class="col-sm-8 equam-color">{{config[10].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[10]);"></i></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-sm-3">Nombre de envío</div>
+            <div class="col-sm-8 equam-color">{{config[11].value}}</div>
+            <div class="col-sm-1" data-toggle="modal" data-target="#modalform"><i class="fas fa-edit equam-hover" (click)="edit(config[11]);"></i></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- modal form -->
+<div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+            <div class="modal-body">
+              
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label" for="classname">Valor</label>
+                                <input id="name" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.value">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clearForm();">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="save();">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>

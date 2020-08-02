@@ -1,1 +1,132 @@
-<p>root-profile works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3">
+    
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="lead">{{formdata.name}} {{formdata.surname}}</div>
+                <div class="text-muted small">Perfil de usuario</div>
+        </div>
+    </div>
+
+    <form class="my-3">
+
+        <div class="row">
+
+            <div class="col-sm-3">
+                <img [src]=" '//localhost/data/images/?id=' + formdata.avatar " class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
+                <img src="/assets/equam-logo.jpg" class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar == '0' ">
+                
+                <div class="btn-group btn-block mt-0">
+                    <button class="btn btn-outline-primary btn-sm" (click)="imgChange()">Cambiar</button>
+                    <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+                </div>
+
+                <div class="mt-2">
+                    <span class="equam-hover" data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información del registro</span>
+                </div>
+
+                <div class="collapse alert alert-info mt-2" id="info">
+                    <p>
+                        Identificador:<br>{{ formdata.id }}
+                        <br>Creado:<br>{{ formdata.creation }}
+                        <br>Modificado:<br>{{ formdata.lastchange }}
+                    </p>
+                </div>
+
+                <div class="mt-2">
+                    <span class="equam-hover" (click)="passRecovery();"><i class="fas fa-retweet"></i> Cambiar mi contraseña</span>
+                </div>
+
+            </div>
+            
+            <div class="col-sm-9">
+
+                <input name="id" type="text" hidden="" [(ngModel)]="formdata.id" >
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Usuario</label>
+                            <input name="username" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.username">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="email">Correo</label>
+                            <input name="email" type="email" min="0" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.email">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="email">Teléfono</label>
+                            <input name="phone" type="email" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.phone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Nombre</label>
+                            <input name="name" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label" for="surname">Apellido</label>
+                            <input name="surname" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.surname">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label" for="bio">Biografía</label>
+                            <textarea name="bio" class="form-control input-md" maxlength="65000" [(ngModel)]="formdata.bio"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="control-label" for="street">Calle y altura</label>
+                            <input name="street" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.street">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="city">Ciudad</label>
+                            <input name="city" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.city">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="postal">Código Postal</label>
+                            <input name="postal" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.postal">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="province">Provincia</label>
+                            <input name="province" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.province">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary float-right" (click)="save();" >Guardar los cambios</button>
+
+            </div>
+
+        </div>
+
+        
+
+    </form>
+
+</div>

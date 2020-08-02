@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  userroletest:string = "root";
   homelabel:string = "Dashboard"; 
   menuitems:any =
   [
@@ -137,25 +137,14 @@ export class NavbarComponent implements OnInit {
     ]
   };
 
-  constructor()
+  constructor( public data:DataProviderService )
   {
 
   }
 
   ngOnInit(): void
   {
-  
-  }
 
-  roleValidate( viewon:string, role:string )
-  {
-    if( viewon == "" || role == "" ) { return false; }
-    else
-    {
-      let result = viewon.indexOf( role );
-      if (result !== -1) { return true; }
-      else { return false; }
-    }
   }
 
 }

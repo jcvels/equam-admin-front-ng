@@ -43,7 +43,7 @@ export class RootUsersComponent implements OnInit {
     }
   ];
 
-  constructor( private data:DataProviderService ) { }
+  constructor( public data:DataProviderService ) { }
 
   /* obtiene listado de usuarios */
   ngOnInit(): void
@@ -113,6 +113,7 @@ export class RootUsersComponent implements OnInit {
       "avatar": "0",
       "bio": "",
       "root": "0",
+      "admin": "0",
       "sales": "0",
       "production": "0",
       "productor": "0",
@@ -126,8 +127,8 @@ export class RootUsersComponent implements OnInit {
   changeValue( item:string )
   {
     /* change value in formdata aray to bind with form-checks */
-    if ( this.formdata[item] == '0' ) { this.formdata[item] = '1' }
-    else { this.formdata[item] = '0' }
+    if ( this.formdata[item] == "0" ) { this.formdata[item] = "1" }
+    else { this.formdata[item] = "0" }
   }
 
   passRecovery()

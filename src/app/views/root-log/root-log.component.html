@@ -1,1 +1,33 @@
-<p>root-log works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3" *ngIf="data.roleValidate('root')">
+    <div class="row">
+        <div class="col-sm-12">
+                <div class="lead">Registro del sistema</div>
+                <div class="text-muted small">Registro de las actividades realizadas en el sistema</div>
+        </div>
+    </div>
+
+    <div>
+
+        <!-- cabecera -->
+        <app-table-headers [headers]="headers"></app-table-headers>
+
+        <!-- datos -->
+        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let log of logs">
+            <div class="row">
+                <div class="col-md-1">{{log.id}}
+                    <span class="d-block d-sm-block d-md-none float-right">
+                        <i class="fas fa-trash" (click)="delete(log.id);"></i>
+                    </span> 
+                </div>
+                <div class="col-md-2">{{log.creation}}</div>
+                <div class="col-md-2">{{log.user}}</div>
+                <div class="col-md-6">{{log.description}}</div>
+                <div class="col-md-1"><i class="fas fa-trash d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="delete(log.id);"></i></div>
+            </div>
+        </div>
+
+    </div>
+</div>

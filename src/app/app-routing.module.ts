@@ -41,6 +41,7 @@ const routes: Routes =
   { path: 'root-login', component: RootLoginComponent },
   { path: 'root-parameters', component: DashboardComponent },
   { path: 'root-profile', component: RootProfileComponent },
+  { path: 'root-profile/:id', component: RootProfileComponent },
   { path: 'root-users', component: RootUsersComponent },
   { path: 'timeline', component: TimelineComponent  },
   { path: '**', component: NotfoundComponent },

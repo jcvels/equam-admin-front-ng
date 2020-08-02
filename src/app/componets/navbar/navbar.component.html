@@ -13,33 +13,26 @@
                     <a class="nav-link text-muted equam-hover" [routerLink]="['/']">{{homelabel}}</a>
                 </li>
                 <!-- construcción de menú según perfil -->
-                <div class="mr-auto" *ngFor="let menuitem of menuitems">
-                    <div *ngIf="roleValidate( menuitem.viewon, userroletest);">
+                <div *ngFor="let menuitem of menuitems">
+                    <div *ngIf="data.roleValidate( menuitem.viewon );">
                         <li class="nav-item dropdown equam-hover">
                             <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{menuitem.name}}</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown09">
                                 <div *ngFor="let item of menuitem.items">
-                                    <a class="dropdown-item equam-hover" [routerLink]="['/' + item.link ]" *ngIf="roleValidate( item.viewon, userroletest);">{{item.name}}</a>
+                                    <a class="dropdown-item equam-hover" [routerLink]="['/' + item.link ]" *ngIf="data.roleValidate( item.viewon );">{{item.name}}</a>
                                 </div>
                             </div>
                         </li>
                     </div>
                 </div>
                 <!--menu de usuario -->
-                <li class="nav-item dropdown equam-hover">
-                    <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{usermenu.name}}</a>
+                <li class="nav-item dropdown equam-hover"> 
+                    <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{data.user.name}}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <div *ngFor="let item of usermenu.items">
-                            <a class="dropdown-item equam-hover" [routerLink]="['/' + item.link ]" *ngIf="roleValidate( item.viewon, userroletest);">{{item.name}}</a>
-                        </div>
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-profile']" >Perfil</a>
+                        <a class="dropdown-item equam-hover" (click)="data.logout();">Salir</a>
 
                         <!-- only for deploy -->
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item equam-hover" (click)=" userroletest='root' ">set as root</a>
-                        <a class="dropdown-item equam-hover" (click)=" userroletest='admin' ">set as admin</a>
-                        <a class="dropdown-item equam-hover" (click)=" userroletest='sales' ">set as sales</a>
-                        <a class="dropdown-item equam-hover" (click)=" userroletest='production' ">set as production</a>
-                        <a class="dropdown-item equam-hover" (click)=" userroletest='productor' ">set as productor</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item equam-hover" [routerLink]="['/timeline']">view timeline</a>
 

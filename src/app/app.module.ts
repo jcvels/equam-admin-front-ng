@@ -35,6 +35,7 @@ import { NotfoundComponent } from './componets/notfound/notfound.component';
 import { TableHeadersComponent } from './utils/table-headers/table-headers.component';
 import { WidgetNumberComponent } from './utils/widget-number/widget-number.component';
 import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
+import { PageHeaderComponent } from './utils/page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
     NotfoundComponent,
     TableHeadersComponent,
     WidgetNumberComponent,
-    WaitSpinerComponent
+    WaitSpinerComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,
