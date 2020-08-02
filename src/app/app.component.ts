@@ -18,7 +18,7 @@ export class AppComponent
 
   ngOnInit(): void
   {
-    this.data.userLogInEventEmitter.subscribe( data => this.userlogin = data ); 
+    this.data.userLogInEventEmitter.subscribe( data => this.userlogin = data );
   }
 
 }

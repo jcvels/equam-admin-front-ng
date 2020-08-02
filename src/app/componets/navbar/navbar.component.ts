@@ -101,8 +101,8 @@ export class NavbarComponent implements OnInit {
           "viewon":"root"
         },
         {
-          "name":"Parametrización",
-          "link":"root-parameters",
+          "name":"Sistema",
+          "link":"root-config",
           "viewon":"root"
         },
         {
@@ -111,8 +111,13 @@ export class NavbarComponent implements OnInit {
           "viewon":"root"
         },
         {
-          "name":"Sistema",
-          "link":"root-config",
+          "name":"Imágenes",
+          "link":"root-images",
+          "viewon":"root"
+        },
+        {
+          "name":"Parametrización",
+          "link":"root-parameters",
           "viewon":"root"
         }
       ]

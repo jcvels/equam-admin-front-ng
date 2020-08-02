@@ -17,20 +17,17 @@ export class DataProviderService
 {
   /* user data */
   user:any = { "username":"PUBLIC" };
-
-  /* app config */
-  apiUrl:string;
-  appUrl:string;
+  config:any = { "apiurl":"//localhost" };
     
   /* routes for each data type */
   routes:any = 
   {
-    "login":"//localhost/data/users/user-validation.php",
-    "users":"//localhost/data/users/",
-    "user":"//localhost/data/users/",
-    "mails":"//localhost/mailer/send/",
-    "logs":"//localhost/data/logs/",
-    "config":"//localhost/data/config/"
+    "login":  this.config['apiurl'] + "/data/users/user-validation.php",
+    "users":  this.config['apiurl'] + "/data/users/",
+    "user":   this.config['apiurl'] + "/data/users/",
+    "mails":  this.config['apiurl'] + "/mailer/send/",
+    "logs":   this.config['apiurl'] + "/data/logs/",
+    "config": this.config['apiurl'] + "/data/config/"
   };
 
   /* event emitters */
@@ -56,7 +53,7 @@ export class DataProviderService
   constructor( private http:HttpClient ) { }
 
   /* uses get method to obtain complete list of elements from api */
-  list( route:string )
+  public list( route:string )
   {
     this.http.get( this.getRoute(route), { headers: this.getHeaders() } )
       .subscribe( data =>
@@ -68,7 +65,7 @@ export class DataProviderService
   }
 
   /* uses get method to obtain one element from api */
-  listOne( route:string, id:string )
+  public listOne( route:string, id:string )
   {
     this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.getHeaders() } )
     .subscribe( data =>
@@ -80,7 +77,7 @@ export class DataProviderService
   }
 
   /* create a new record */
-  create( route:string, data:any )
+  public create( route:string, data:any )
   {
     this.http.post( this.getRoute(route), data, { headers: this.getHeaders() } )
     .subscribe( data =>
@@ -92,7 +89,7 @@ export class DataProviderService
   }
 
   /* update a record */
-  update( route:string, data:any )
+  public update( route:string, data:any )
   {
     this.http.put( this.getRoute(route), data, { headers: this.getHeaders() } )
     .subscribe( data =>
@@ -104,7 +101,7 @@ export class DataProviderService
   }
 
   /* delete a database record */
-  delete( route:string, id:string )
+  public delete( route:string, id:string )
   {
     this.http.delete( this.getRoute(route) + "?id=" + id, { headers: this.getHeaders() } )
     .subscribe( data =>
@@ -128,14 +125,14 @@ export class DataProviderService
   }
 
   /* envio de mails */
-  sendMail( data:any )
+  public sendMail( data:any )
   {
     this.http.post( this.getRoute('mails'), data, { headers: this.getHeaders() } )
     .subscribe( data => this.evalResponce( data , true ) );
   }
 
   /* user login */
-  login( username:string, password:string )
+  public login( username:string, password:string )
   {
     /* defino la ruta de acceso */
     let route = "login";
@@ -181,7 +178,7 @@ export class DataProviderService
   }
 
   /* user logout */
-  logout()
+  public logout()
   {
     this.userLogInEventEmitter.emit( false );
   }
@@ -221,6 +218,15 @@ export class DataProviderService
 
     /* retun */
     return headers;
+  }
+
+  /* obtiene los parametros indicados en el archivo config.json */
+  public getLocalConfig()
+  {
+    this.http.get( '/assets/config.json').subscribe(
+      data => { this.config = data; console.log('Configuración cargada correctamente'); },
+      (error) => console.log('No se puede encontrar el archivo de configuración: ' + error )
+    );
   }
 
 }

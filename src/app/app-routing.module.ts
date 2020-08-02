@@ -20,6 +20,8 @@ import { RootProfileComponent } from './views/root-profile/root-profile.componen
 import { RootUsersComponent } from './views/root-users/root-users.component';
 import { TimelineComponent } from './views/timeline/timeline.component';
 import { NotfoundComponent } from './componets/notfound/notfound.component';
+import { RootParametersComponent } from './views/root-parameters/root-parameters.component';
+import { RootImagesComponent } from './views/root-images/root-images.component';
 
 
 const routes: Routes = 
@@ -39,10 +41,11 @@ const routes: Routes =
   { path: 'root-config', component: RootConfigComponent },
   { path: 'root-log', component: RootLogComponent },
   { path: 'root-login', component: RootLoginComponent },
-  { path: 'root-parameters', component: DashboardComponent },
+  { path: 'root-parameters', component: RootParametersComponent },
   { path: 'root-profile', component: RootProfileComponent },
   { path: 'root-profile/:id', component: RootProfileComponent },
   { path: 'root-users', component: RootUsersComponent },
+  { path: 'root-images', component: RootImagesComponent },
   { path: 'timeline', component: TimelineComponent  },
   { path: '**', component: NotfoundComponent },
 ];

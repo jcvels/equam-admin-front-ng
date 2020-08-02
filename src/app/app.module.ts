@@ -36,6 +36,7 @@ import { TableHeadersComponent } from './utils/table-headers/table-headers.compo
 import { WidgetNumberComponent } from './utils/widget-number/widget-number.component';
 import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
 import { PageHeaderComponent } from './utils/page-header/page-header.component';
+import { RootImagesComponent } from './views/root-images/root-images.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PageHeaderComponent } from './utils/page-header/page-header.component';
     TableHeadersComponent,
     WidgetNumberComponent,
     WaitSpinerComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    RootImagesComponent
   ],
   imports: [
     BrowserModule,
