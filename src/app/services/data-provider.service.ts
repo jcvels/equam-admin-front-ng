@@ -16,10 +16,11 @@ import { EventEmitter } from '@angular/core';
 export class DataProviderService
 {
   /* user data */
-  user:any = { "username":"system" };
+  user:any = { "username":"PUBLIC" };
 
-  /* http headers */
-  headers = new HttpHeaders( { 'appkey' : '90d34c97c0f71bd781b3e575d0efd868', 'appuser' : this.user.username } ); /* desarrollar getheaders */
+  /* app config */
+  apiUrl:string;
+  appUrl:string;
     
   /* routes for each data type */
   routes:any = 
@@ -57,7 +58,7 @@ export class DataProviderService
   /* uses get method to obtain complete list of elements from api */
   list( route:string )
   {
-    this.http.get( this.getRoute(route), { headers: this.headers } )
+    this.http.get( this.getRoute(route), { headers: this.getHeaders() } )
       .subscribe( data =>
       {
         this.evalResponce( data["responce"], false );
@@ -69,7 +70,7 @@ export class DataProviderService
   /* uses get method to obtain one element from api */
   listOne( route:string, id:string )
   {
-    this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.headers } )
+    this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.getHeaders() } )
     .subscribe( data =>
     {
       this.evalResponce( data["responce"], false );
@@ -81,7 +82,7 @@ export class DataProviderService
   /* create a new record */
   create( route:string, data:any )
   {
-    this.http.post( this.getRoute(route), data, { headers: this.headers } )
+    this.http.post( this.getRoute(route), data, { headers: this.getHeaders() } )
     .subscribe( data =>
       {
         this.evalResponce( data["responce"], true );
@@ -93,7 +94,7 @@ export class DataProviderService
   /* update a record */
   update( route:string, data:any )
   {
-    this.http.put( this.getRoute(route), data, { headers: this.headers } )
+    this.http.put( this.getRoute(route), data, { headers: this.getHeaders() } )
     .subscribe( data =>
       {
         this.evalResponce( data["responce"], true );
@@ -105,7 +106,7 @@ export class DataProviderService
   /* delete a database record */
   delete( route:string, id:string )
   {
-    this.http.delete( this.getRoute(route) + "?id=" + id, { headers: this.headers } )
+    this.http.delete( this.getRoute(route) + "?id=" + id, { headers: this.getHeaders() } )
     .subscribe( data =>
       {
         this.evalResponce( data["responce"], true );
@@ -120,7 +121,7 @@ export class DataProviderService
     return this.routes[name]; 
   }
 
-  /* analiza la metadata de la respuesta y emite mensaje si es requerido */
+  /* analiza la metadata de la respuesta y emite mensaje si es requerido ¡¡¡ TO-DO !!!*/
   private evalResponce( data:any, showOk:boolean )
   {
     console.log( data );
@@ -129,8 +130,8 @@ export class DataProviderService
   /* envio de mails */
   sendMail( data:any )
   {
-    this.http.post( this.getRoute('mails'), data, { headers: this.headers } )
-    .subscribe( data => console.log( 'Recovery mail sent') );
+    this.http.post( this.getRoute('mails'), data, { headers: this.getHeaders() } )
+    .subscribe( data => this.evalResponce( data , true ) );
   }
 
   /* user login */
@@ -143,7 +144,7 @@ export class DataProviderService
     let data = { "username":username, "password":password  };
 
     /* envio la informacion al servidor de validación y espera respuesta */
-    this.http.post( this.getRoute(route), data, { headers: this.headers } )
+    this.http.post( this.getRoute(route), data, { headers: this.getHeaders() } )
     .subscribe( data =>
       {
         /* envio a evalaur el resultado de la respuesta */
@@ -159,7 +160,7 @@ export class DataProviderService
           let route = "users";
 
           /* envio el id de usuario para obtener su información */
-          this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.headers } )
+          this.http.get( this.getRoute(route) + "?id=" + id, { headers: this.getHeaders() } )
           .subscribe( data =>
           {
             /* cuando obtengo la respuesta envio para evaluación la metadata */
@@ -207,6 +208,19 @@ export class DataProviderService
       /* si ninguno de los roles coincida envio false */
       else { return false; }
     }
+  }
+
+  /* retuns headers for http connection */
+  private getHeaders()
+  {
+    /* appkey */
+    let appkey = '90d34c97c0f71bd781b3e575d0efd868';
+
+    /* http headers */
+    let headers = new HttpHeaders( { 'appkey' : appkey, 'appuser' : this.user.username } );
+
+    /* retun */
+    return headers;
   }
 
 }

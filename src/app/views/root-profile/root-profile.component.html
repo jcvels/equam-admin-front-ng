@@ -10,15 +10,15 @@
         </div>
     </div>
 
-    <form class="my-3">
+    <form class="my-3 equam-border  mt-3 p-3">
 
         <div class="row">
 
             <div class="col-sm-3">
-                <img [src]=" '//localhost/data/images/?id=' + formdata.avatar " class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
+                <img [src]=" '//localhost/data/images/?id=' + formdata.avatar " class="p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
                 <img src="/assets/equam-logo.jpg" class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar == '0' ">
                 
-                <div class="btn-group btn-block mt-0">
+                <div class="btn-group btn-block mt-2">
                     <button class="btn btn-outline-primary btn-sm" (click)="imgChange()">Cambiar</button>
                     <button class="btn btn-outline-danger btn-sm">Eliminar</button>
                 </div>

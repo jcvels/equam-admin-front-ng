@@ -10,7 +10,7 @@ export class RootConfigComponent implements OnInit {
 
   waiting:boolean = true;
   viewSecret:boolean = false;
-  config:any;
+  config:any = {};
   formdata:any;
 
   constructor( private data:DataProviderService ) { }
@@ -18,7 +18,7 @@ export class RootConfigComponent implements OnInit {
   ngOnInit(): void
   {
     this.clearForm();
-    this.data.configEventEmmiter.subscribe( data => { this.config = data; this.waiting = false; console.log( data ) } )
+    this.data.configEventEmmiter.subscribe( data => { this.config = data; this.waiting = false; } )
     this.data.list( 'config' );
   }
 

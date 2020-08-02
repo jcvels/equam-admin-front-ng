@@ -98,8 +98,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void
   {
     this.user = this.data.user;
-
-    console.log ( this.user );
   }
 
   public randomize(): void {
