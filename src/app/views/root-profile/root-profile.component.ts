@@ -11,18 +11,21 @@ export class RootProfileComponent implements OnInit {
 
   waiting:boolean = true;
   formdata:any;
+  
 
-  constructor( private data:DataProviderService) { }
+  selectedImg:File = null;
+  status:string = '';
+  selected:boolean = false;
+  uploaded:boolean = false;
+
+  constructor( public data:DataProviderService) { }
 
   ngOnInit(): void
   {
+    this.clearForm();
     this.data.userEventEmitter.subscribe( data => { this.formdata = data[0]; this.waiting = false; } )
     this.data.listOne( 'user', this.data.user.id )
-  }
-
-  imgChange()
-  {
-    this.formdata.avatar = '45';
+    this.data.imageEventEmitter.subscribe( data => { console.log( data ); alert( data ); } );
   }
 
   save()
@@ -60,6 +63,54 @@ export class RootProfileComponent implements OnInit {
       /* cierra sesión */
       this.data.logout()
     }
+  }
+
+  /* clear */
+  clearForm()
+  {
+    this.formdata =
+    {
+      "id": "",
+      "username": "",
+      "name": "",
+      "surname": "",
+      "email": "",
+      "phone": "",
+      "avatar": "",
+      "bio": "",
+      "street": "",
+      "city": "",
+      "postal": "",
+      "province": "",
+      "root": "",
+      "admin": "",
+      "sales": "",
+      "production": "",
+      "productor": "",
+      "needreset": "",
+      "active": "",
+      "creation": "",
+      "lastchange": ""
+    };
+  }
+
+  /* guarda la imagen seleccionada temporalmente y habilita el boton de subida */
+  imgSelected( event )
+  {
+    if ( event.target.files.length > 0 )
+    { 
+      this.selectedImg = <File> event.target.files[0];
+      this.status = "Image file selected. Ready for upload..."
+      this.selected = true;
+    }
+    else { console.log("No hay archivo"); }
+  }  
+
+  /* subir imagen */
+  upload()
+  {
+    this.status = "Sending file to server. Waiting for image upload confirmation ... ";
+    this.data.postImg( this.selectedImg );
   }
 
 }

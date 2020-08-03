@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { FileUploadModule } from 'ng2-file-upload'; 
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,7 +23,7 @@ import { RootUsersComponent } from './views/root-users/root-users.component';
 import { DashboardComponent } from './componets/dashboard/dashboard.component';
 import { FooterComponent } from './componets/footer/footer.component';
 import { NotifyComponent } from './componets/notify/notify.component';
-import { OrdersActiveComponent } from './views/orders-active/orders-active.component';
+import { OrdersNewComponent } from './views/orders-new/orders-new.component';
 import { OrdersProductionComponent } from './views/orders-production/orders-production.component';
 import { OrdersArchiveComponent } from './views/orders-archive/orders-archive.component';
 import { OrderViewComponent } from './views/order-view/order-view.component';
@@ -55,7 +56,7 @@ import { RootImagesComponent } from './views/root-images/root-images.component';
     DashboardComponent,
     FooterComponent,
     NotifyComponent,
-    OrdersActiveComponent,
+    OrdersNewComponent,
     OrdersProductionComponent,
     OrdersArchiveComponent,
     OrderViewComponent,
@@ -75,6 +76,7 @@ import { RootImagesComponent } from './views/root-images/root-images.component';
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
+    FileUploadModule,
     FormsModule,
     HttpClientModule
   ],

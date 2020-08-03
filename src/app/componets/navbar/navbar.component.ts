@@ -17,8 +17,8 @@ export class NavbarComponent implements OnInit {
       "items":
       [
         {
-          "name":"Venta",
-          "link":"orders-active",
+          "name":"Ingresar venta",
+          "link":"orders-new",
           "icon":"fas fa-cart-plus",
           "viewon":"root sales"
         },
@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
           "viewon":"root sales"
         },
         {
-          "name":"Ventas (historico)",
+          "name":"Ventas",
           "link":"orders-archive",
           "icon":"far fa-file-alt",
           "viewon":"root sales"

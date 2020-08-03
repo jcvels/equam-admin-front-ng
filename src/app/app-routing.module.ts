@@ -5,7 +5,7 @@ import { AdminCompaniesComponent } from './views/admin-companies/admin-companies
 import { AdminDestinationsComponent } from './views/admin-destinations/admin-destinations.component';
 import { AdminManufacturersComponent } from './views/admin-manufacturers/admin-manufacturers.component';
 import { AdminProductsComponent } from './views/admin-products/admin-products.component';
-import { OrdersActiveComponent } from './views/orders-active/orders-active.component';
+import { OrdersNewComponent } from './views/orders-new/orders-new.component';
 import { OrdersProductionComponent } from './views/orders-production/orders-production.component';
 import { OrdersArchiveComponent } from './views/orders-archive/orders-archive.component';
 import { OrderViewComponent } from './views/order-view/order-view.component';
@@ -31,7 +31,7 @@ const routes: Routes =
   { path: 'admin-destinations', component: AdminDestinationsComponent },
   { path: 'admin-manufacturers', component: AdminManufacturersComponent },
   { path: 'admin-products', component: AdminProductsComponent },
-  { path: 'orders-active', component: OrdersActiveComponent },
+  { path: 'orders-new', component: OrdersNewComponent },
   { path: 'orders-archive', component: OrdersArchiveComponent },
   { path: 'order-view', component: OrderViewComponent },
   { path: 'production-active', component: ProductionActiveComponent },

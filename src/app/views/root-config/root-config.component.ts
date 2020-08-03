@@ -18,7 +18,7 @@ export class RootConfigComponent implements OnInit {
   ngOnInit(): void
   {
     this.clearForm();
-    this.data.configEventEmmiter.subscribe( data => { this.config = data; this.waiting = false; } )
+    this.data.configEventEmitter.subscribe( data => { this.config = data; this.waiting = false; } )
     this.data.list( 'config' );
   }
 

@@ -27,7 +27,8 @@ export class DataProviderService
     "user":   this.config['apiurl'] + "/data/users/",
     "mails":  this.config['apiurl'] + "/mailer/send/",
     "logs":   this.config['apiurl'] + "/data/logs/",
-    "config": this.config['apiurl'] + "/data/config/"
+    "config": this.config['apiurl'] + "/data/config/",
+    "images": this.config['apiurl'] + "/data/config/index.php"
   };
 
   /* event emitters */
@@ -35,7 +36,8 @@ export class DataProviderService
   userEventEmitter = new EventEmitter();
   usersEventEmitter = new EventEmitter();
   logsEventEmitter = new EventEmitter();
-  configEventEmmiter = new EventEmitter();
+  configEventEmitter = new EventEmitter();
+  imageEventEmitter = new EventEmitter();
 
   /* make emit depens on given event emitter */
   private emitData( route:string, data:any )
@@ -45,7 +47,7 @@ export class DataProviderService
       case 'users':   this.usersEventEmitter.emit( data ); break;
       case 'user':    this.userEventEmitter.emit( data ); break;
       case 'logs':    this.logsEventEmitter.emit( data ); break;
-      case 'config':  this.configEventEmmiter.emit( data ); break;
+      case 'config':  this.configEventEmitter.emit( data ); break;
       default: break;
     }
   }
@@ -108,6 +110,23 @@ export class DataProviderService
       {
         this.evalResponce( data["responce"], true );
         this.list( route );
+      }
+    );
+  }
+
+  /* sube un archivo de imagen a repositorio */
+  public postImg( imgFile:File )
+  {
+    let formData = new FormData();
+
+    formData.append( 'img', imgFile, imgFile.name );
+    formData.append( 'description', 'imagen de prueba');
+
+    this.http.post( this.getRoute('images'), formData )
+    .subscribe( data => 
+      {
+        //this.evalResponce( data["responce"], true );
+        this.imageEventEmitter.emit( "respuesta" );
       }
     );
   }
