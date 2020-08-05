@@ -38,6 +38,7 @@ import { WidgetNumberComponent } from './utils/widget-number/widget-number.compo
 import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
 import { PageHeaderComponent } from './utils/page-header/page-header.component';
 import { RootImagesComponent } from './views/root-images/root-images.component';
+import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { RootImagesComponent } from './views/root-images/root-images.component';
     WidgetNumberComponent,
     WaitSpinerComponent,
     PageHeaderComponent,
-    RootImagesComponent
+    RootImagesComponent,
+    ImgManagerComponent
   ],
   imports: [
     BrowserModule,

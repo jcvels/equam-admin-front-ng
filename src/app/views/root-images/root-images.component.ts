@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-root-images',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RootImagesComponent implements OnInit {
 
-  constructor() { }
+  waiting:boolean = true;
+  images:any;
 
-  ngOnInit(): void {
+  constructor( private data:DataProviderService ) { }
+
+  ngOnInit(): void
+  {
+    this.data.imagesEventEmitter.subscribe( data => { this.images = data; this.waiting = false; } );
+    this.data.list( 'images' );
   }
 
 }

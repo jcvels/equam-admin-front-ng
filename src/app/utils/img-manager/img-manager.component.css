@@ -12,7 +12,7 @@
   background-color: white;
 }
 
-.overlay-container:hover .overlay
+.card:hover .overlay
 {
   opacity: .9;
 }

@@ -15,13 +15,13 @@
     <!-- data loading spiner -->
     <app-wait-spiner *ngIf="waiting"></app-wait-spiner>
 
-    <div class="equam-border mt-3 p-3" >
+    <div>
 
         <!-- cabecera -->
         <app-table-headers [headers]="headers"></app-table-headers>
 
         <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let user of users">
+        <div class="equam-border mt-2 p-2 equam-hover animate__animated animate__slideInUp" *ngFor="let user of users">
             <div class="row">
                 <div class="col-md-1">
                     {{user.username}}
@@ -43,7 +43,7 @@
                     <span *ngIf="user.production == 1"><i title="Producción" class="fas fa-seedling mr-1"></i></span>
                     <span *ngIf="user.productor == 1"><i title="Productor" class="fas fa-hands-helping mr-1"></i></span>
                 </div>
-                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="edit(user);"></i></div>
+                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block float-right" data-toggle="modal" data-target="#modalform" (click)="edit(user);"></i></div>
             </div>
         </div>
 

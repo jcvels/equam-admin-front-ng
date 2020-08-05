@@ -14,15 +14,21 @@
 
         <div class="row">
 
-            <div class="col-sm-3">
-                <img [src]=" '//localhost/data/images/?id=' + formdata.avatar " class="p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
+            <div class="col-sm-3 overlay-container">
+                <img [src]=" apiurl + '/data/images/?id=' + formdata.avatar " class="p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
                 <img src="/assets/equam-logo.jpg" class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar == '0' ">
-                
-                <div class="btn-group btn-block mt-2">
-                    <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modalform">Cambiar</button>
-                    <button class="btn btn-outline-danger btn-sm">Eliminar</button>
-                </div>
 
+                <div class="overlay">
+                    <div class="text-right p-3 push-down mb-1">
+                        <span 
+                            class="h2 equam-hover mt-2 mr-2"
+                            data-toggle="modal"
+                            data-target="#imgManagerModal">
+                            <i class="fas fa-ellipsis-v"></i>
+                    </span>
+                    </div>
+                </div>
+                
                 <div class="mt-2">
                     <span class="equam-hover" data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información del registro</span>
                 </div>
@@ -129,39 +135,4 @@
 
 </div>
 
-<!-- modal form -->
-<div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Cargar archivo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-  
-            <div class="modal-body">             
-                <div class="form-horizontal">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            
-                            <input id="avatar" type="file" accept=".jpg" class="btn btn-primary btn-sm mt-2" required="" (change)="imgSelected($event)"><br>
-                            
-                            <button type="button" class="btn btn-primary btn-sm mt-2" (click)="upload();" *ngIf="selected">Cargar el archivo</button><br>
-
-                            <button type="button" class="btn btn-primary btn-sm mt-2" data-dismiss="modal" (click)="save();" *ngIf="uploaded">Guardar</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <div class="row mt-1 mr-auto text-monospace color-warning">{{status}}</div>
-                <button type="button" role="reset" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clearForm();">Cancelar</button>               
-            </div>
-
-        </div>
-    </div>
-</div>
+<app-img-manager [username]="formdata.username" [userid]="formdata.id" (selectedImgIdEventEmitter)="receiveAvatarId($event)"></app-img-manager>

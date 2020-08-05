@@ -1,1 +1,21 @@
-<p>root-images works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3">
+    
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="lead">Imagenes</div>
+                <div class="text-muted small">Visualice las imágenes almacenadas en el sistema</div>
+        </div>
+    </div>
+
+    <div class="equam-border mt-3 p-3 card-columns">
+
+        <div class="card" *ngFor="let image of images" >
+
+            <img class="img-fluid" [src]=" '//localhost/data/images/?id=' + image.id" [alt]="image.name">
+
+        </div>
+
+    </div>

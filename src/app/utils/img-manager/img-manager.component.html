@@ -1,0 +1,55 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="imgManagerModal" aria-hidden="true" id="imgManagerModal">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+
+        <div class="container p-3">
+
+            <div class="row mb-3">
+                <div class="col-sm-8">
+                    <div class="display-4 equam-color my-auto">
+                        Seleccionar imágen
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h2 class="equam-btn text-right mt-3" data-toggle="collapse" data-target="#imgUploadForm" aria-expanded="false"><i class="fas fa-plus-circle"></i></h2>
+                </div>
+            </div>
+
+            <div class="row collapse" id="imgUploadForm">
+                <div class="col-sm-6">
+                    <form name="fileUploader">
+                        <input class="mt-1" type="file" id="avatar" accept=".jpg" required="" (change)="imgSelected($event)">
+                        <button class="btn btn-primary btn-sm float-sm-right mt-1" (click)="upload();" *ngIf="selected"><i class="fas fa-upload"></i> Cargar</button>
+                    </form>
+                </div>
+                <div class="col-sm-6">
+                    <p class="lead mt-1">{{status}}</p>
+                </div>
+            </div>
+
+            <div class="equam-border mt-3 p-3 card-columns">
+                <div class="card" *ngFor="let image of images" >
+                    <img class="img-fluid text-center fade show" [src]=" apiurl + '/data/images/?id=' + image.id  " [alt]="image.name">
+                    <div class="overlay">
+                        <div class="text-center p-3">
+                            <span class="lead">{{image.name}}</span><br>
+                            <span class="text-muted">{{image.creation}}</span><br>
+                            <span>{{image.description}}</span><br>
+                            <div class="mt-auto">
+                                <span class="equam-hover mr-5 h3">
+                                    <i class="fas fa-check" title="Seleccionar" (click)="select(image.id);" data-dismiss="modal"></i>
+                                </span>
+                                <span class="equam-hover h3"> <i class="fas fa-trash" title="Eliminar" (click)="delete(image.id);"></i> </span>
+                            </div>
+                            <span style="position: absolute; bottom: 5px; left: 5px;">[ ID = {{image.id}} ]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-muted text-center">En la vista de selección se solo se muestran 10 imagenes. Si requiere gestionar todos sus archivos, acceda a la galeria desde el menú usuario.</p>
+
+        </div>
+    </div>
+  </div>
+</div>

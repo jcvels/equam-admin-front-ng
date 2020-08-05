@@ -59,7 +59,14 @@ export class NavbarComponent implements OnInit {
           "name":"Historial de producción",
           "link":"production-archive",
           "viewon":"root production"
-        },
+        }
+      ]
+    },
+    {
+      "name":"Productor",
+      "viewon":"root production productor",
+      "items":
+      [
         {
           "name":"Administrar mi producción",
           "link":"productors-active",

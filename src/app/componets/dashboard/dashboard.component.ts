@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { DataProviderService } from 'src/app/services/data-provider.service';

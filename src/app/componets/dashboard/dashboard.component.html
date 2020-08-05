@@ -8,7 +8,7 @@
     <!-- basic dashboard -->
     <div class="card-deck mt-4">
 
-        <div class="card bg-light">
+        <div class="card bg-light equam-border">
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
@@ -53,7 +53,6 @@
     </div>
 
     <!-- adbanced dashboard -->
-
     <div class="card-deck my-4">
 
         <div class="card p-1 bg-light">
@@ -93,3 +92,10 @@
     </div>
 
 </div>
+
+<hr>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#imgManagerModal">Extra large modal</button>
+
+
+<app-img-manager [username]="user.username" [userid]="user.id"></app-img-manager>

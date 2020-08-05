@@ -1,21 +1,21 @@
 <!-- data loading spiner -->
 <app-wait-spiner *ngIf="waiting"></app-wait-spiner>
 
-<div class="container mt-3">
+<div class="container mt-3" *ngIf="!waiting">
     
     <div class="row">
         <div class="col-sm-9">
                 <div class="lead">Configuración del sistema</div>
                 <div class="text-muted small">Canfigure las variables de funcionamiento del sistema.</div>
         </div>
-        <div class="custom-control custom-switch">
+        <div class="custom-control custom-switch m-2 p-2">
             <input type="checkbox" class="custom-control-input" id="secret" [(ngModel)]="viewSecret">
             <label class="custom-control-label" for="secret">Mostrar contraseñas</label>
         </div>
     </div>
-    
-    <div class="equam-border mt-3 p-3">
-        <div class="text-muted">Aplicación</div>
+
+    <div class="lead equam-color mt-3 pl-3">Aplicación</div>
+    <div class="equam-border p-3">
         <div class="row mt-1">
                 <div class="col-sm-3">Nombre</div>
                 <div class="col-sm-8 equam-color">{{config[0].value}}</div>
@@ -28,8 +28,8 @@
         </div>
     </div>
 
-    <div class="equam-border mt-3 p-3">
-        <div class="text-muted">Rutas de acceso</div>
+    <div class="lead equam-color mt-1 pl-3">Rutas de acceso</div>
+    <div class="equam-border mt-1 p-3">
         <div class="row mt-1">
                 <div class="col-sm-3">API URL</div>
                 <div class="col-sm-8 equam-color">{{config[2].value}}</div>
@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <div class="equam-border mt-3 p-3">
-        <div class="text-muted">Servicio de correo electrónico</div>
+    <div class="lead equam-color mt-1 pl-3">Servicio de correo electrónico</div>
+    <div class="equam-border mt-1 p-3">
         <div class="row mt-1">
                 <div class="col-sm-3">SMTP Server</div>
                 <div class="col-sm-8 equam-color">{{config[5].value}}</div>

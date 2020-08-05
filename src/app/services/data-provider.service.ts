@@ -15,21 +15,37 @@ import { EventEmitter } from '@angular/core';
 })
 export class DataProviderService
 {
-  /* user data */
-  user:any = { "username":"PUBLIC" };
-  config:any = { "apiurl":"//localhost" };
-    
-  /* routes for each data type */
-  routes:any = 
+  /* user data 
+  
+  --->> TO DO Cambiar los componentes al metodo getUserInfo y getConfigInfo en vez de acceder a las variables publicas <<---
+  
+  */
+  public user:any = { "username":"PUBLIC" };
+  public config:any = { "apiurl":"//localhost" };
+  
+  /* proporciona la ruta correcta en funcion del tipo de consulta
+  
+  --->> TO DO: Mejorar performance utilizando un switch case <<---
+  
+  */
+  private getRoute( name:string )
   {
-    "login":  this.config['apiurl'] + "/data/users/user-validation.php",
-    "users":  this.config['apiurl'] + "/data/users/",
-    "user":   this.config['apiurl'] + "/data/users/",
-    "mails":  this.config['apiurl'] + "/mailer/send/",
-    "logs":   this.config['apiurl'] + "/data/logs/",
-    "config": this.config['apiurl'] + "/data/config/",
-    "images": this.config['apiurl'] + "/data/config/index.php"
-  };
+    /* routes for each data type */
+    let routes:any = 
+    {
+      "login":  this.getConfigInfo('apiurl') + "/data/users/user-validation.php",
+      "users":  this.getConfigInfo('apiurl') + "/data/users/",
+      "user":   this.getConfigInfo('apiurl') + "/data/users/",
+      "mails":  this.getConfigInfo('apiurl') + "/mailer/send/",
+      "logs":   this.getConfigInfo('apiurl') + "/data/logs/",
+      "config": this.getConfigInfo('apiurl') + "/data/config/",
+      "images": this.getConfigInfo('apiurl') + "/data/images/",
+      "imgSel": this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10"
+    };
+
+    /* retorna la ruta solicitada */
+    return routes[name]; 
+  }
 
   /* event emitters */
   userLogInEventEmitter = new EventEmitter();
@@ -38,6 +54,7 @@ export class DataProviderService
   logsEventEmitter = new EventEmitter();
   configEventEmitter = new EventEmitter();
   imageEventEmitter = new EventEmitter();
+  imagesEventEmitter = new EventEmitter();
 
   /* make emit depens on given event emitter */
   private emitData( route:string, data:any )
@@ -48,11 +65,13 @@ export class DataProviderService
       case 'user':    this.userEventEmitter.emit( data ); break;
       case 'logs':    this.logsEventEmitter.emit( data ); break;
       case 'config':  this.configEventEmitter.emit( data ); break;
+      case 'images':  this.imagesEventEmitter.emit( data ); break;
+      case 'imgSel': this.imagesEventEmitter.emit( data ); break;
       default: break;
     }
   }
   
-  constructor( private http:HttpClient ) { }
+  constructor( private http:HttpClient ) { this.getLocalConfig(); }
 
   /* uses get method to obtain complete list of elements from api */
   public list( route:string )
@@ -115,26 +134,21 @@ export class DataProviderService
   }
 
   /* sube un archivo de imagen a repositorio */
-  public postImg( imgFile:File )
+  public postImg( imgFile:File, desc:string, userid:string )
   {
     let formData = new FormData();
 
     formData.append( 'img', imgFile, imgFile.name );
-    formData.append( 'description', 'imagen de prueba');
+    formData.append( 'desc', desc );
+    formData.append( 'userid', userid );
 
     this.http.post( this.getRoute('images'), formData )
     .subscribe( data => 
       {
-        //this.evalResponce( data["responce"], true );
-        this.imageEventEmitter.emit( "respuesta" );
+        this.evalResponce( data["responce"], true );
+        this.imageEventEmitter.emit( data["values"] );
       }
     );
-  }
-
-  /* proporciona la ruta correcta en funcion del tipo de consulta */
-  private getRoute( name:string )
-  {
-    return this.routes[name]; 
   }
 
   /* analiza la metadata de la respuesta y emite mensaje si es requerido ¡¡¡ TO-DO !!!*/
@@ -202,6 +216,7 @@ export class DataProviderService
     this.userLogInEventEmitter.emit( false );
   }
 
+  /* user privilegies validation */
   public roleValidate( viewon:string )
   {
     /* valido que se suministraron los parametros */
@@ -240,12 +255,24 @@ export class DataProviderService
   }
 
   /* obtiene los parametros indicados en el archivo config.json */
-  public getLocalConfig()
+  private getLocalConfig()
   {
     this.http.get( '/assets/config.json').subscribe(
-      data => { this.config = data; console.log('Configuración cargada correctamente'); },
+      data => { this.config = data; console.log( data ); },
       (error) => console.log('No se puede encontrar el archivo de configuración: ' + error )
     );
+  }
+
+  /* obtiene la configuración actual */
+  public getConfigInfo( req:string )
+  {
+    return this.config[req];
+  }
+
+  /* obtiene la configuración actual */
+  public getUserInfo( req:string )
+  {
+    return this.user[req];
   }
 
 }

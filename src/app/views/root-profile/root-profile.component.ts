@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 
-
 @Component({
   selector: 'app-root-profile',
   templateUrl: './root-profile.component.html',
@@ -11,21 +10,17 @@ export class RootProfileComponent implements OnInit {
 
   waiting:boolean = true;
   formdata:any;
-  
+  apiurl:string;
 
-  selectedImg:File = null;
-  status:string = '';
-  selected:boolean = false;
-  uploaded:boolean = false;
-
-  constructor( public data:DataProviderService) { }
+  constructor( private data:DataProviderService ) { }
 
   ngOnInit(): void
   {
     this.clearForm();
     this.data.userEventEmitter.subscribe( data => { this.formdata = data[0]; this.waiting = false; } )
     this.data.listOne( 'user', this.data.user.id )
-    this.data.imageEventEmitter.subscribe( data => { console.log( data ); alert( data ); } );
+
+    this.apiurl = this.data.getConfigInfo('apiurl');
   }
 
   save()
@@ -65,6 +60,13 @@ export class RootProfileComponent implements OnInit {
     }
   }
 
+  /* recive el id seleccionado y guarda en formdata */
+  receiveAvatarId( $event )
+  {
+    this.formdata.avatar = $event;
+    console.log( $event );
+  }
+
   /* clear */
   clearForm()
   {
@@ -92,25 +94,6 @@ export class RootProfileComponent implements OnInit {
       "creation": "",
       "lastchange": ""
     };
-  }
-
-  /* guarda la imagen seleccionada temporalmente y habilita el boton de subida */
-  imgSelected( event )
-  {
-    if ( event.target.files.length > 0 )
-    { 
-      this.selectedImg = <File> event.target.files[0];
-      this.status = "Image file selected. Ready for upload..."
-      this.selected = true;
-    }
-    else { console.log("No hay archivo"); }
-  }  
-
-  /* subir imagen */
-  upload()
-  {
-    this.status = "Sending file to server. Waiting for image upload confirmation ... ";
-    this.data.postImg( this.selectedImg );
   }
 
 }
