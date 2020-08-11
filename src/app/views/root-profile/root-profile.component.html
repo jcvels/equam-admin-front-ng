@@ -14,21 +14,24 @@
 
         <div class="row">
 
-            <div class="col-sm-3 overlay-container">
-                <img [src]=" apiurl + '/data/images/?id=' + formdata.avatar " class="p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
-                <img src="/assets/equam-logo.jpg" class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar == '0' ">
+            <div class="col-sm-3">
 
-                <div class="overlay">
-                    <div class="text-right p-3 push-down mb-1">
-                        <span 
-                            class="h2 equam-hover mt-2 mr-2"
-                            data-toggle="modal"
-                            data-target="#imgManagerModal">
-                            <i class="fas fa-ellipsis-v"></i>
-                    </span>
+                <div class="overlay-container card">
+                    <img [src]=" apiurl + '/data/images/?id=' + formdata.avatar " class="p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar != '0' ">
+                    <img src="/assets/equam-logo.jpg" class="border p1 rounded img-fluid mb-0" alt="User-Picture" *ngIf=" formdata.avatar == '0' ">
+
+                    <div class="overlay d-flex justify-content-center">
+                        <div class="my-auto p-3">
+                            <span 
+                                class="h2 equam-hover mt-2 mr-2"
+                                data-toggle="modal"
+                                data-target="#imgManagerModal">
+                                <i class="fas fa-retweet"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
-                
+               
                 <div class="mt-2">
                     <span class="equam-hover" data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información del registro</span>
                 </div>
@@ -135,4 +138,4 @@
 
 </div>
 
-<app-img-manager [username]="formdata.username" [userid]="formdata.id" (selectedImgIdEventEmitter)="receiveAvatarId($event)"></app-img-manager>
+<app-img-manager (selectedImgIdEventEmitter)="receiveAvatarId($event)"></app-img-manager>

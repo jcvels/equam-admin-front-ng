@@ -39,6 +39,7 @@ import { WaitSpinerComponent } from './utils/wait-spiner/wait-spiner.component';
 import { PageHeaderComponent } from './utils/page-header/page-header.component';
 import { RootImagesComponent } from './views/root-images/root-images.component';
 import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
+import { ProfileManagerComponent } from './utils/profile-manager/profile-manager.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
     WaitSpinerComponent,
     PageHeaderComponent,
     RootImagesComponent,
-    ImgManagerComponent
+    ImgManagerComponent,
+    ProfileManagerComponent
   ],
   imports: [
     BrowserModule,

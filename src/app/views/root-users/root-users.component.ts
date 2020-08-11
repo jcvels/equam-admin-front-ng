@@ -11,6 +11,7 @@ export class RootUsersComponent implements OnInit {
   waiting:boolean = true;
   users:any;
   formdata:any;
+  apiurl:string;
   headers:any =
   [
     {
@@ -48,6 +49,7 @@ export class RootUsersComponent implements OnInit {
   /* obtiene listado de usuarios */
   ngOnInit(): void
   {
+    this.apiurl = this.data.getConfigInfo('apiurl');
     this.clearForm();
     this.data.usersEventEmitter.subscribe( data => { this.users = data; this.waiting = false; this.clearForm(); } );
     this.data.list( 'users' );

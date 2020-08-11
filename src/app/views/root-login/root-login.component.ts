@@ -11,7 +11,7 @@ export class RootLoginComponent implements OnInit {
 
   waiting:boolean = false;
   username:string = "root";
-  password:string = "Jorge1985";
+  password:string = "Pa$$w0rd";
 
   constructor( private data:DataProviderService ) { }
 

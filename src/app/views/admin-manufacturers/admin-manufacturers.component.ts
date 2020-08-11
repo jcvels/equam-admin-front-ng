@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-admin-manufacturers',
@@ -7,101 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminManufacturersComponent implements OnInit {
 
-  headers:any=
-  [
-    {
-      "name":"Nombre",
-      "colsize":"2"
-    },
-    {
-      "name":"Apelido",
-      "colsize":"2"
-    },
-    {
-      "name":"Empresa",
-      "colsize":"2"
-    },
-    {
-      "name":"Teléfono",
-      "colsize":"2"
-    },
-    {
-      "name":"Correo",
-      "colsize":"3"
-    },
-    {
-      "name":"",
-      "colsize":"1"
-    }
-  ];
-  manufacturers:any =
-  [
-    {
-      "id":"1",
-      "name":"José",
-      "surname":"Bringas",
-      "companyname":"",
-      "phone":"12345678",
-      "email":"abcde@xyz.com",
-      "address":
-      {
-        "street":"",
-        "city":"Achiras",
-        "postal":"",
-        "provincia":"Córdoba",
-        "country":"Argentina"
-      },
-      "status":"",
-      "creation":"",
-      "lastchange":""
-    },
-    {
-      "id":"2",
-      "name":"",
-      "surname":"",
-      "companyname":"",
-      "phone":"",
-      "email":"",
-      "address":
-      {
-        "street":"",
-        "city":"",
-        "postal":"",
-        "provincia":"",
-        "country":""
-      },
-      "status":"",
-      "creation":"",
-      "lastchange":""
-    }
-  ];
-  formdata:any =
+  manufacturers:any;
+  formdata:any;
+  waiting:boolean = true;
+  apiurl:string;
+
+  constructor( private data:DataProviderService ) { }
+
+  ngOnInit(): void
   {
-    "id":"",
-    "name":"",
-    "surname":"",
-    "companyname":"",
-    "phone":"",
-    "email":"",
-    "address":
-    {
-      "street":"",
-      "city":"",
-      "postal":"",
-      "provincia":"",
-      "country":""
-    },
-    "status":"",
-    "creation":"",
-    "lastchange":""
-  };
-
-  constructor() { }
-
-  ngOnInit(): void { }
+    this.apiurl = this.data.getConfigInfo('apiurl');
+    this.data.manufacturersEventEmitter.subscribe( data => { this.manufacturers = data; this.waiting = false; } )
+    this.data.list('manufacturers');
+  }
 
   filterTable() {}
 
-  edit(data:any) {}
+  edit(data:any)
+  {
+
+  }
+
+  new()
+  {
+
+  }
 
 }

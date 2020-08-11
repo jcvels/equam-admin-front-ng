@@ -40,7 +40,8 @@ export class DataProviderService
       "logs":   this.getConfigInfo('apiurl') + "/data/logs/",
       "config": this.getConfigInfo('apiurl') + "/data/config/",
       "images": this.getConfigInfo('apiurl') + "/data/images/",
-      "imgSel": this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10"
+      "imgSel": this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10",
+      "manufacturers": this.getConfigInfo('apiurl') + "/data/manufacturers/",
     };
 
     /* retorna la ruta solicitada */
@@ -55,18 +56,20 @@ export class DataProviderService
   configEventEmitter = new EventEmitter();
   imageEventEmitter = new EventEmitter();
   imagesEventEmitter = new EventEmitter();
+  manufacturersEventEmitter = new EventEmitter();
 
   /* make emit depens on given event emitter */
   private emitData( route:string, data:any )
   {
     switch( route )
     {
-      case 'users':   this.usersEventEmitter.emit( data ); break;
-      case 'user':    this.userEventEmitter.emit( data ); break;
-      case 'logs':    this.logsEventEmitter.emit( data ); break;
-      case 'config':  this.configEventEmitter.emit( data ); break;
-      case 'images':  this.imagesEventEmitter.emit( data ); break;
-      case 'imgSel': this.imagesEventEmitter.emit( data ); break;
+      case 'users':           this.usersEventEmitter.emit( data ); break;
+      case 'user':            this.userEventEmitter.emit( data ); break;
+      case 'logs':            this.logsEventEmitter.emit( data ); break;
+      case 'config':          this.configEventEmitter.emit( data ); break;
+      case 'images':          this.imagesEventEmitter.emit( data ); break;
+      case 'imgSel':          this.imagesEventEmitter.emit( data ); break;
+      case 'manufacturers':   this.manufacturersEventEmitter.emit( data ); break;
       default: break;
     }
   }

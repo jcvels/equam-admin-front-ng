@@ -5,8 +5,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
-  width: 100%;
+  height: inherit;
+  width: inherit;
   opacity: 0;
   transition: .5s ease;
   background-color: white;
