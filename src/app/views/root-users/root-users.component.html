@@ -15,39 +15,39 @@
     <!-- data loading spiner -->
     <app-wait-spiner *ngIf="waiting"></app-wait-spiner>
 
-    <div>
-
-        <!-- cabecera -->
-        <app-table-headers [headers]="headers"></app-table-headers>
-
-        <!-- datos -->
-        <div class="equam-border mt-2 p-2 equam-hover animate__animated animate__slideInUp" *ngFor="let user of users">
-            <div class="row">
-                <div class="col-md-1">
-                    {{user.username}}
-                    <span class="d-block d-sm-block d-md-none float-right" (click)="clearForm();">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </span> 
+    <div class="card-columns mt-3">
+        <div class="card m-1 p-1 equam-card" *ngFor="let user of users">
+            <div style="height: 200px; overflow: hidden;" class="align-baseline">
+                <img [src]="apiurl+'/data/images/?id='+user.avatar" class="card-img-top" *ngIf="user.avatar != '0' ">
+                <img src="../../../assets/equam-logo.jpg" class="card-img-top" *ngIf="user.avatar == '0' ">
+            </div>
+            <div class="card-body">
+                    <span class="lead">{{user.name}} {{user.surname}}</span><span class="text-muted small float-right">({{user.username}})</span><br>
+                    <span class="text-muted small">{{user.email}}</span><br>
+                    <div class="mt-1 mr-1">
+                        <!-- indicadores de estado -->
+                        <span *ngIf="user.needreset == 1"><i title="Permiso de configuración de contraseña activado" class="fas fa-key mr-1 text-danger"></i></span>
+                        <span *ngIf="user.active == 1"><i title="Usuario activo" class="fas fa-user-check mr-1"></i></span>
+                        <span *ngIf="user.active == 0"><i title="El usuario no puede ingresar al sistema" class="fas fa-ban mr-1 text-warning"></i></span>
+                        <!-- indicadores de permisos -->
+                        <span *ngIf="user.root == 1" class="float-right"><i title="Administrador del sistema" class="fas fa-shield-alt mr-1"></i></span>
+                        <span *ngIf="user.admin == 1" class="float-right"><i title="Administrador" class="fas fa-user-cog mr-1"></i></span>
+                        <span *ngIf="user.sales == 1" class="float-right"><i title="Ventas" class="fas fa-tags mr-1"></i></span>
+                        <span *ngIf="user.production == 1" class="float-right"><i title="Producción" class="fas fa-seedling mr-1"></i></span>
+                        <span *ngIf="user.productor == 1" class="float-right"><i title="Productor" class="fas fa-hands-helping mr-1"></i></span>
+                    </div>
+                    
+            </div>
+            <div class="equam-overlay d-flex">
+                <div class="my-auto mx-auto">
+                    <span class="equam-hover h3">
+                        <i class="fas fa-edit" title="Editar" data-toggle="modal" data-target="#modalform" (click)="edit(user);"></i>
+                    </span>
                 </div>
-                <div class="col-md-2">{{user.name}}</div>
-                <div class="col-md-2">{{user.surname}}</div>
-                <div class="col-md-3">{{user.email}}</div>
-                <div class="col-md-1">
-                    <span *ngIf="user.needreset == 1"><i title="Permiso de configuración de contraseña activado" class="fas fa-key mr-1 text-danger"></i></span>                    <span *ngIf="user.active == 1"><i title="Usuario activo" class="fas fa-user-check mr-1"></i></span>
-                    <span *ngIf="user.active == 0"><i title="El usuario no puede ingresar al sistema" class="fas fa-ban mr-1 text-warning"></i></span>
-                </div>
-                <div class="col-md-2">
-                    <span *ngIf="user.root == 1"><i title="Administrador del sistema" class="fas fa-shield-alt mr-1"></i></span>
-                    <span *ngIf="user.admin == 1"><i title="Administrador" class="fas fa-user-cog mr-1"></i></span>
-                    <span *ngIf="user.sales == 1"><i title="Ventas" class="fas fa-tags mr-1"></i></span>
-                    <span *ngIf="user.production == 1"><i title="Producción" class="fas fa-seedling mr-1"></i></span>
-                    <span *ngIf="user.productor == 1"><i title="Productor" class="fas fa-hands-helping mr-1"></i></span>
-                </div>
-                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block float-right" data-toggle="modal" data-target="#modalform" (click)="edit(user);"></i></div>
             </div>
         </div>
-
     </div>
+
 </div>
 
 <!-- modal form -->

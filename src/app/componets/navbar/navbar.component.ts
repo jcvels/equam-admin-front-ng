@@ -17,6 +17,12 @@ export class NavbarComponent implements OnInit {
       "items":
       [
         {
+          "name":"Ventas",
+          "link":"orders-archive",
+          "icon":"far fa-file-alt",
+          "viewon":"root sales"
+        },
+        {
           "name":"Ingresar venta",
           "link":"orders-new",
           "icon":"fas fa-cart-plus",
@@ -25,23 +31,17 @@ export class NavbarComponent implements OnInit {
         {
           "name":"Empresas",
           "link":"admin-companies",
-          "viewon":"root sales"
+          "viewon":"root adminññ"
         },
         {
           "name":"Productos",
           "link":"admin-products",
-          "viewon":"root sales"
+          "viewon":"root admin"
         },
         {
           "name":"Planes",
           "link":"admin-plan",
-          "viewon":"root sales"
-        },
-        {
-          "name":"Ventas",
-          "link":"orders-archive",
-          "icon":"far fa-file-alt",
-          "viewon":"root sales"
+          "viewon":"root admin"
         }
       ]
     },
@@ -59,6 +59,16 @@ export class NavbarComponent implements OnInit {
           "name":"Historial de producción",
           "link":"production-archive",
           "viewon":"root production"
+        },
+        {
+          "name":"Productores",
+          "link":"admin-manufacturers",
+          "viewon":"root admin"
+        },
+        {
+          "name":"Receptores",
+          "link":"admin-destinations",
+          "viewon":"root admin"
         }
       ]
     },
@@ -76,24 +86,6 @@ export class NavbarComponent implements OnInit {
           "name":"Historial de mi producción",
           "link":"productors-archive",
           "viewon":"root productor"
-        }
-      ]
-    },
-    {
-      "name":"Administración",
-      "viewon":"root admin",
-      "items":
-      [
-
-        {
-          "name":"Productores",
-          "link":"admin-manufacturers",
-          "viewon":"root admin"
-        },
-        {
-          "name":"Receptores",
-          "link":"admin-destinations",
-          "viewon":"root admin"
         }
       ]
     },
@@ -130,24 +122,6 @@ export class NavbarComponent implements OnInit {
       ]
     }
   ];
-  usermenu:any = 
-  {
-    "name":"Usuario",
-    "viewon":"root admin sales production productor",
-    "items":
-    [
-      {
-        "name":"Perfil",
-        "link":"root-profile",
-        "viewon":"root admin sales production productor"
-      },
-      {
-        "name":"Salir",
-        "link":"root-login",
-        "viewon":"root admin sales production productor"
-      }
-    ]
-  };
 
   constructor( public data:DataProviderService )
   {

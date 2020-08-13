@@ -73,10 +73,6 @@
                 </p>
             </div>
 
-            <div class="mt-2">
-                <span class="equam-hover" (click)="passRecovery();"><i class="fas fa-retweet"></i> Cambiar contraseña</span>
-            </div>
-
         </div>
         
         <div class="col-sm-9">
@@ -157,8 +153,8 @@
                 </div>
             </div>
             
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary float-right btn-sm" (click)="save();" data-dismiss="modal">Guardar los cambios</button>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="close();">Cancelar</button>
+            <button class="btn btn-primary float-right btn-sm" (click)="save();">Guardar los cambios</button>
 
         </div>
 
