@@ -13,8 +13,9 @@
 
     <!-- menu de edición del perfil -->
     <div class="equam-menu" id="profile">
-        <div class="container mt-5">
+        <div class="container mt-3">
             <div>
+                <div class="lead my-1">Editar perfil de producctor</div>
                 <app-profile-manager [profile]="formdata" [newprofile]="newprofile" *ngIf="showprofile" (updatedProfileEventEmitter)="update($event)" ></app-profile-manager>
             </div>
         </div>
