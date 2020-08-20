@@ -1,3 +1,6 @@
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
 <div class="container mt-3">
     <div class="row">
         <div class="col-sm-6">
@@ -6,7 +9,6 @@
         </div>
         <div class="col-sm-6">
             <div class="form-inline ">
-                <input class="equam-input" type="text" placeholder="buscar" (keyup)="filterTable();">
                 <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
             </div>
         </div>
@@ -31,12 +33,12 @@
                 <div class="col-md-2">
                     {{destination.name}}
                     <span class="d-block d-sm-block d-md-none float-right">
-                        <i class="fas fa-ellipsis-v" (click)="filterTable();"></i>
+                        <i class="fas fa-ellipsis-v" data-toggle="modal" data-target="#modalform" (click)="edit(destination);"></i>
                     </span> 
                 </div>
                 <div class="col-md-3">{{destination.companyname}}</div>
                 <div class="col-md-3">{{destination.phone}}</div>
-                <div class="col-md-3">{{destination.email}}</div>
+                <div class="col-md-3">{{destination.mail}}</div>
                 <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="edit(destination);"></i></div>
             </div>
         </div>
@@ -46,12 +48,12 @@
 
 <!-- modal form -->
 <div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
         
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Empresa</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="staticBackdropLabel">Receptor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm();">
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -63,44 +65,31 @@
                 <input id="id" type="text" hidden="" [(ngModel)]="formdata.id" > 
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group- lineal">
                             <label class="control-label" for="classname">Nombre</label>
                             <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.name">
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group- lineal">
                             <label class="control-label" for="classname">Razón social</label>
                             <input id="companyname" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.companyname">
                         </div>
                     </div>
-
-                    <div class="col-sm-6">
-                        <label class="control-label" for="classname">Estado</label>
-                        <select class="custom-select" id="status">
-                            <option selected>Seleccione una opción...</option>
-                            <option value="1">Activo</option>
-                            <option value="2">Suspendido</option>
-                            <option value="2">Dado de baja</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="control-label" for="classsequence">Teléfono</label>
-                            <input id="phone" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.phone">
+                            <label class="control-label" for="classsequence">Correo</label>
+                            <input id="email" type="mail" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.mail">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="control-label" for="classsequence">Correo</label>
-                            <input id="email" type="email" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.email">
+                            <label class="control-label" for="classsequence">Teléfono</label>
+                            <input id="phone" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.phone">
                         </div>
                     </div>
                 </div>
@@ -110,13 +99,13 @@
                     <span class="float-right equam-hover"  data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información</span>
                 </div>
 
-                <div class="collapse border rounder p-1 bg-light mt-2" id="address">
+                <div class="border rounder p-1 bg-light mt-2" id="address">
 
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label" for="classsequence">Calle y altura</label>
-                                <input id="phone" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.address.street">
+                                <input id="street" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.street">
                             </div>
                         </div>
                     </div>
@@ -124,30 +113,52 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="classsequence">Ciudad</label>
-                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.city">
+                                <input id="city" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.city">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="classsequence">Código Postal</label>
-                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.postal">
+                                <input id="postal" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.postal">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label" for="classsequence">País</label>
-                                <input id="email" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.address.country">
+                                <label class="control-label" for="classsequence">Provincia</label>
+                                <input id="province" type="text" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.province">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">Latitud</label>
+                                <input id="lat" type="text" max="15" class="form-control input-md" required="" [(ngModel)]="formdata.lat">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classsequence">Longitud</label>
+                                <input id="long" type="text" max="15" class="form-control input-md" required="" [(ngModel)]="formdata.lon">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">Ver en el mapa</label><br>
+                                <a class="btn btn-primary btn-sm" [href]=' "https://www.google.com/maps/@"+ formdata.lat +","+ formdata.lon +",300m"' target="_blank" >Google Maps</a>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
+                <div class="mt-2">
+                    <span class="equam-hover"  data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información</span>
+                </div>
+
                 <div class="collapse border rounder p-1 bg-light mt-2" id="info">
-                    
-                    <p class="small">Creado {{ formdata.address.creation }}</p>
-                    <p class="small">Modificado {{ formdata.address.lastchange }}</p>
-                    
+                    <p class="small">Creado: {{ formdata.creation }}</p>
+                    <p class="small">Modificado: {{ formdata.lastchange }}</p>
                 </div>
                 
             </div>
@@ -155,8 +166,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clearForm();">Cancelar</button>
+            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="save();">Guardar</button>
         </div>
 
     </div>

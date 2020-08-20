@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Md5} from 'ts-md5/dist/md5';
 import { DataProviderService } from 'src/app/services/data-provider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root-login',
@@ -13,11 +14,12 @@ export class RootLoginComponent implements OnInit {
   username:string = "root";
   password:string = "Pa$$w0rd";
 
-  constructor( private data:DataProviderService ) { }
+  constructor( private data:DataProviderService, private router:Router ) { }
 
   ngOnInit(): void 
   {
     this.data.userLogInEventEmitter.subscribe( data => this.waiting = false );
+    this.router.navigateByUrl('/');
   }
 
   public login()

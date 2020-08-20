@@ -1,1 +1,14 @@
-<p>notify works!</p>
+<div class="message-container">
+
+    <div *ngFor="let message of messages">
+        <div class="message alert m-2 shadow-sm" [ngClass]="{ 'mb-red': message.type == 0 || message.type == -1, 'mb-yellow': message.type == 1, 'mb-green': message.type == 2 }" data-dismiss="alert" aria-label="Close">
+
+            <span class="badge badge-danger" *ngIf="message.type == 0 || message.type == -1" >¡Error!</span> 
+            <span class="badge badge-warning" *ngIf="message.type == 1" >¡Cuidado!</span> 
+            <span class="badge badge-success" *ngIf="message.type == 2" >¡Bien!</span>
+            <br><span> {{message.message}}</span>
+
+        </div>
+    </div>
+
+</div>

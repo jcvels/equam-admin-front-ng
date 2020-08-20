@@ -6,6 +6,7 @@ import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 
 import { DataProviderService } from './services/data-provider.service';
+import { NotifyService } from './services/notify.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -84,7 +85,10 @@ import { ProfileManagerComponent } from './utils/profile-manager/profile-manager
     FormsModule,
     HttpClientModule
   ],
-  providers: [DataProviderService],
+  providers: [
+    DataProviderService,
+    NotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

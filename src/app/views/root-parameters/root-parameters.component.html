@@ -1,1 +1,84 @@
-<p>root-parameters works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3" *ngIf="data.roleValidate('root')">
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="lead">Registro del sistema</div>
+                <div class="text-muted small">Registro de las actividades realizadas en el sistema</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-inline ">
+                <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 p-3">
+
+        <!-- cabecera -->
+        <app-table-headers [headers]="headers"></app-table-headers>
+
+        <!-- datos -->
+        <div class="p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let parameter of parameters">
+            <div class="row small">
+                <div class="col-md-1">{{parameter.id}}
+                    <span class="d-block d-sm-block d-md-none float-right">
+                        <i class="fas fa-trash mr-1" (click)="delete(parameter.id);"></i>
+                        <i class="fas fa-edit" data-toggle="modal" data-target="#modalform" (click)="edit(parameter);"></i>
+                    </span> 
+                </div>
+                <div class="col-md-2">{{parameter.name}}</div>
+                <div class="col-md-6">{{parameter.value}}</div>
+                <div class="col-md-2">{{parameter.creation}}</div>
+                <div class="col-md-1">
+                    <i class="fas fa-trash  mr-1" (click)="delete(parameter.id);"></i>
+                    <i class="fas fa-edit " data-toggle="modal" data-target="#modalform" (click)="edit(parameter);"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- modal form -->
+<div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Parametrización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearform();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+            <div class="modal-body">
+              
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classname">Agrupador</label>
+                                <input id="name" type="text" class="form-control input-md" maxlength="25" required="" [(ngModel)]="formdata.name">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label class="control-label" for="classname">Valor</label>
+                                <input id="name" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.value">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" (click)="clearform();">Cancelar</button>
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" (click)="save();">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>

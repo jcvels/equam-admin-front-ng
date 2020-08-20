@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       "name":"Productor",
-      "viewon":"root production productor",
+      "viewon":"root productor",
       "items":
       [
         {
@@ -86,38 +86,6 @@ export class NavbarComponent implements OnInit {
           "name":"Historial de mi producción",
           "link":"productors-archive",
           "viewon":"root productor"
-        }
-      ]
-    },
-    {
-      "name":"Configuración",
-      "viewon":"root",
-      "items":
-      [
-        {
-          "name":"Usuarios",
-          "link":"root-users",
-          "viewon":"root"
-        },
-        {
-          "name":"Sistema",
-          "link":"root-config",
-          "viewon":"root"
-        },
-        {
-          "name":"Registro",
-          "link":"root-log",
-          "viewon":"root"
-        },
-        {
-          "name":"Imágenes",
-          "link":"root-images",
-          "viewon":"root"
-        },
-        {
-          "name":"Parametrización",
-          "link":"root-parameters",
-          "viewon":"root"
         }
       ]
     }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-admin-destinations',
@@ -7,55 +8,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDestinationsComponent implements OnInit {
   
-  formdata:any = 
+  waiting:boolean = true;
+  formdata:any;
+  destinations:any;
+
+  constructor( private data:DataProviderService ) { }
+
+  ngOnInit(): void
   {
-    "id":"",
-    "name":"",
-    "companyname":"",
-    "phone":"",
-    "email":"",
-    "address":
+    this.clearForm();
+    this.data.destinationsEventEmitter.subscribe( data => { this.destinations = data; this.waiting = false } );
+    this.data.list( 'destinations' );
+  }
+
+  edit( data:String )
+  {
+    this.formdata = data;
+  }
+
+  save()
+  {
+    /* nuevo valor */
+    if( this.formdata.id == '')
     {
-      "street":"",
-      "city":"",
-      "postal":"",
-      "provincia":"",
-      "country":""
-    },
-    "geolink":"",
-    "status":"",
-    "creation":"",
-    "lastchange":""
-  };
-  destinations:any =
-  [
-    {
-      "id":"1",
-      "name":"Bringas José",
-      "companyname":"",
-      "phone":"(03544) 15 589374",
-      "email":"aaaaa@ggggg.com.ar",
-      "address":
-      {
-        "street":"",
-        "city":"San Javier",
-        "postal":"",
-        "provincia":"Córdoba",
-        "country":"Argentina"
-      },
-      "geolink":"",
-      "status":"",
-      "creation":"",
-      "lastchange":""
+      this.data.create('destinations', this.formdata);
+      this.data.list('destinations');
     }
-  ];
+    
+    /* modificacion de valor */
+    else
+    {
+      this.data.update('destinations', this.formdata);
+      this.data.list('destinations');
+    }
 
-  constructor() { }
+    /* limpio el formulario */
+    this.clearForm();
+  }
 
-  ngOnInit(): void {}
-
-  filterTable() {}
-
-  edit( data:String ) { this.formdata = data }
+  clearForm()
+  {
+    this.formdata =
+    {
+      "id": "",
+      "name": "",
+      "companyname": "",
+      "avatar": "",
+      "phone": "",
+      "mail": "",
+      "lat":"",
+      "long":"",
+      "street": "",
+      "city": "",
+      "postal": "",
+      "province": "",
+      "active": "",
+      "creation": "",
+      "lastchange": ""
+    };
+  }
 
 }

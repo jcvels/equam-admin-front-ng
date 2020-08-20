@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-darck rounded equam-navbar sticky-top bg-light">
+<nav class="navbar navbar-expand-lg navbar-darck rounded equam-navbar sticky-top bg-light border-bottom">
 
-    <div class="container border-bottom">
+    <div class="container ">
         <a class="navbar-brand" [routerLink]="['/']"><img src="assets\equam-logo.jpg" class="rounded-circle" width="50em" height="50em"></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-1" aria-controls="navbar-1" aria-expanded="false">
@@ -25,20 +25,42 @@
                         </li>
                     </div>
                 </div>
-                <!--menu de usuario -->
-                <li class="nav-item dropdown equam-hover"> 
-                    <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{data.user.name}}</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item equam-hover" [routerLink]="['/root-profile']" >Perfil</a>
-                        <a class="dropdown-item equam-hover" (click)="data.logout();">Salir</a>
+            </ul>
 
-                        <!-- only for deploy -->
+            <ul class="navbar-nav ml-auto">
+                <!--menu configuración -->
+                <li class="nav-item dropdown equam-hover" *ngIf="data.roleValidate( 'root' );">
+                    <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cogs"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdown09">
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-users']" >Usuarios</a>
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-config']" >Configuración</a>
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-parameters']" >Parametrización</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item equam-hover" [routerLink]="['/timeline']">view timeline</a>
-
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-images']" >Banco de Imágenes</a>
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-log']" >Registro del sistema</a>
+                    </div>
+                </li>
+                <!--menu de usuario --> 
+                <li class="nav-item dropdown equam-hover ">
+                    <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                        <i class="fas fa-config"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdown09">
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-profile']" >Perfil</a>
+                        <a class="dropdown-item equam-hover" [routerLink]="['/root-images']" >Mis imágenes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item equam-hover" (click)="data.logout();">Salir</a>
+                        <!-- only for deploy -->
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item equam-hover" [routerLink]="['/timeline']">view timeline</a>
+                        <!-- only for deploy -->
                     </div>
                 </li>
             </ul>
+
         </div>
     </div>
 

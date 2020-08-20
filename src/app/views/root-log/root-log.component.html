@@ -9,14 +9,14 @@
         </div>
     </div>
 
-    <div class="equam-border mt-3 p-3">
+    <div class="mt-3 p-3">
 
         <!-- cabecera -->
         <app-table-headers [headers]="headers"></app-table-headers>
 
         <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let log of logs">
-            <div class="row">
+        <div class="p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let log of logs">
+            <div class="row small">
                 <div class="col-md-1">{{log.id}}
                     <span class="d-block d-sm-block d-md-none float-right">
                         <i class="fas fa-trash" (click)="delete(log.id);"></i>

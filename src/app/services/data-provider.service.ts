@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
+import { NotifyService } from './notify.service';
 
 /*
  *    Para cada tabla a consultar se debera agregar:
@@ -10,9 +11,8 @@ import { EventEmitter } from '@angular/core';
  *    3) agregar el nombre de la ruta en el swicht-case de la función emitData.
  */
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
+
 export class DataProviderService
 {
   /* user data 
@@ -20,7 +20,8 @@ export class DataProviderService
   --->> TO DO Cambiar los componentes al metodo getUserInfo y getConfigInfo en vez de acceder a las variables publicas <<---
   
   */
-  public user:any = { "username":"PUBLIC" };
+
+  public user:any = { "username":"public" };
   public config:any = { "apiurl":"//localhost" };
   
   /* proporciona la ruta correcta en funcion del tipo de consulta
@@ -33,15 +34,18 @@ export class DataProviderService
     /* routes for each data type */
     let routes:any = 
     {
-      "login":  this.getConfigInfo('apiurl') + "/data/users/user-validation.php",
-      "users":  this.getConfigInfo('apiurl') + "/data/users/",
-      "user":   this.getConfigInfo('apiurl') + "/data/users/",
-      "mails":  this.getConfigInfo('apiurl') + "/mailer/send/",
-      "logs":   this.getConfigInfo('apiurl') + "/data/logs/",
-      "config": this.getConfigInfo('apiurl') + "/data/config/",
-      "images": this.getConfigInfo('apiurl') + "/data/images/",
-      "imgSel": this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10",
-      "manufacturers": this.getConfigInfo('apiurl') + "/data/manufacturers/",
+      "login":this.getConfigInfo('apiurl') + "/data/users/user-validation.php",
+      "users":this.getConfigInfo('apiurl') + "/data/users/",
+      "user":this.getConfigInfo('apiurl') + "/data/users/",
+      "mails":this.getConfigInfo('apiurl') + "/mailer/send/",
+      "logs":this.getConfigInfo('apiurl') + "/data/logs/",
+      "config":this.getConfigInfo('apiurl') + "/data/config/",
+      "images":this.getConfigInfo('apiurl') + "/data/images/",
+      "imgSel":this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10",
+      "manufacturers":this.getConfigInfo('apiurl') + "/data/manufacturers/",
+      "parameters":this.getConfigInfo('apiurl') + "/data/parameters/",
+      "destinations":this.getConfigInfo('apiurl') + "/data/destinations/",
+      "companies":this.getConfigInfo('apiurl') + "/data/companies/"
     };
 
     /* retorna la ruta solicitada */
@@ -57,6 +61,9 @@ export class DataProviderService
   imageEventEmitter = new EventEmitter();
   imagesEventEmitter = new EventEmitter();
   manufacturersEventEmitter = new EventEmitter();
+  parametersEventEmitter = new EventEmitter();
+  destinationsEventEmitter = new EventEmitter();
+  companiesEventEmitter = new EventEmitter();
 
   /* make emit depens on given event emitter */
   private emitData( route:string, data:any )
@@ -70,11 +77,14 @@ export class DataProviderService
       case 'images':          this.imagesEventEmitter.emit( data ); break;
       case 'imgSel':          this.imagesEventEmitter.emit( data ); break;
       case 'manufacturers':   this.manufacturersEventEmitter.emit( data ); break;
-      default: break;
+      case 'parameters':      this.parametersEventEmitter.emit( data ); break;
+      case 'destinations':    this.destinationsEventEmitter.emit( data ); break;
+      case 'companies':       this.companiesEventEmitter.emit( data ); break;
+      default: console.error( "La ruta especificada no se encuentra definida" ); break;
     }
   }
   
-  constructor( private http:HttpClient ) { this.getLocalConfig(); }
+  constructor( private http:HttpClient, private notify:NotifyService ) { this.getLocalConfig(); }
 
   /* uses get method to obtain complete list of elements from api */
   public list( route:string )
@@ -157,7 +167,7 @@ export class DataProviderService
   /* analiza la metadata de la respuesta y emite mensaje si es requerido ¡¡¡ TO-DO !!!*/
   private evalResponce( data:any, showOk:boolean )
   {
-    console.log( data );
+    this.notify.msgShowOnError( data, showOk );
   }
 
   /* envio de mails */
@@ -261,8 +271,8 @@ export class DataProviderService
   private getLocalConfig()
   {
     this.http.get( '/assets/config.json').subscribe(
-      data => { this.config = data; console.log( data ); },
-      (error) => console.log('No se puede encontrar el archivo de configuración: ' + error )
+      data => { this.config = data; },
+      (error) => console.error('No se puede encontrar el archivo de configuración: ' + error )
     );
   }
 

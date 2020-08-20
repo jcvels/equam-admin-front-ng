@@ -1,0 +1,27 @@
+.message-container
+{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    z-index: 10000;
+    width: 25%;
+}
+
+.message
+{
+    border: solid 1px rgb(224, 216, 216);
+    animation-name: show-from-right;
+    animation-duration: 0.5s;
+    transition-delay: 0.5s;
+    background-color: whitesmoke;
+}
+
+.mb-red { border-left: solid 5px #C82333; }
+.mb-yellow { border-left: solid 5px #FECC38; }
+.mb-green { border-left: solid 5px #28A745; }
+
+@keyframes show-from-right
+{
+    from { right: -100px; }
+    to { right: 0px; }
+}
