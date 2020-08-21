@@ -22,7 +22,11 @@ export class RootParametersComponent implements OnInit {
     },
     {
       "name":"Valor",
-      "colsize":"6"
+      "colsize":"3"
+    },
+    {
+      "name":"Descripción",
+      "colsize":"3"
     },
     {
       "name":"Creación",

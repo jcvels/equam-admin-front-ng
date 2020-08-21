@@ -29,7 +29,8 @@
                     </span> 
                 </div>
                 <div class="col-md-2">{{parameter.name}}</div>
-                <div class="col-md-6">{{parameter.value}}</div>
+                <div class="col-md-3">{{parameter.value}}</div>
+                <div class="col-md-3">{{parameter.description}}</div>
                 <div class="col-md-2">{{parameter.creation}}</div>
                 <div class="col-md-1">
                     <i class="fas fa-trash  mr-1" (click)="delete(parameter.id);"></i>
@@ -63,10 +64,16 @@
                                 <input id="name" type="text" class="form-control input-md" maxlength="25" required="" [(ngModel)]="formdata.name">
                             </div>
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="classname">Valor</label>
                                 <input id="name" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.value">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="classname">Descripción</label>
+                                <input id="name" type="text" class="form-control input-md" maxlength="100" required="" [(ngModel)]="formdata.description">
                             </div>
                         </div>
                     </div>
