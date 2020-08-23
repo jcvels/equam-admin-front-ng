@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
-  selector: 'app-admin-products',
-  templateUrl: './admin-products.component.html',
-  styleUrls: ['./admin-products.component.css']
+  selector: 'app-admin-plans',
+  templateUrl: './admin-plans.component.html',
+  styleUrls: ['./admin-plans.component.css']
 })
-export class AdminProductsComponent implements OnInit {
+export class AdminPlansComponent implements OnInit {
 
-  headers:any = [{"name":"Nombre","colsize":"8"},{"name":"Precio","colsize":"3"}];
+  headers:any = [{"name":"Nombre","colsize":"4"},{"name":"Empresa","colsize":"4"},{"name":"Precio","colsize":"4"}];
   waiting:boolean = true;
   apiurl:string;
   formdata:any;
-  products:any;
+  plans:any;
+  companies:any;
   
   constructor( private data:DataProviderService ) { }
 
@@ -20,8 +21,10 @@ export class AdminProductsComponent implements OnInit {
   {
     this.clearForm();
     this.apiurl = this.data.getConfigInfo('apiurl');
-    this.data.productsEventEmitter.subscribe( data => { this.products = data; this.waiting = false; } );
-    this.data.list( 'products' );
+    this.data.plansEventEmitter.subscribe( data => { this.plans = data; this.waiting = false; } );
+    this.data.list( 'plans' );
+    this.data.companiesEventEmitter.subscribe( data => { this.companies = data;} );
+    this.data.list( 'companies' );
   }
 
   edit( data:String )
@@ -34,15 +37,15 @@ export class AdminProductsComponent implements OnInit {
     /* nuevo valor */
     if( this.formdata.id == '')
     {
-      this.data.create('products', this.formdata);
-      this.data.list('products');
+      this.data.create('plans', this.formdata);
+      this.data.list('plans');
     }
     
     /* modificacion de valor */
     else
     {
-      this.data.update('products', this.formdata);
-      this.data.list('products');
+      this.data.update('plans', this.formdata);
+      this.data.list('plans');
     }
 
     /* limpio el formulario */

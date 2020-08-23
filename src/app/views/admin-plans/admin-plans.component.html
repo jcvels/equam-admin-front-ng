@@ -1,10 +1,10 @@
 <div class="container mt-3">
     <div class="row">
-        <div class="col-sm-6">
-                <div class="lead">Productos</div>
-                <div class="text-muted small">Gestión de productos</div>
+        <div class="col-8">
+                <div class="lead">Planes de empresa</div>
+                <div class="text-muted small">Gestión de places con empresas asociadas</div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-4">
             <div class="form-inline ">
                 <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
             </div>
@@ -17,16 +17,17 @@
         <app-table-headers [headers]="headers"></app-table-headers>
 
         <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let product of products">
+        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let plan of plans">
             <div class="row">
-                <div class="col-md-8">
-                    {{product.name}}
+                <div class="col-md-4">
+                    {{plan.name}}
                     <span class="d-block d-sm-block d-md-none float-right">
-                        <i class="fas fa-ellipsis-v" data-toggle="modal" data-target="#modalform" (click)="edit(product);"></i>
+                        <i class="fas fa-ellipsis-v" data-toggle="modal" data-target="#modalform" (click)="edit(plan);"></i>
                     </span> 
                 </div>
-                <div class="col-md-3">${{product.price}}</div>
-                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="edit(product);"></i></div>
+                <div class="col-md-4">{{plan.companyid}}</div>
+                <div class="col-md-3">${{plan.price}}</div>
+                <div class="col-md-1"><i class="fas fa-ellipsis-v d-none d-sm-none d-md-block" data-toggle="modal" data-target="#modalform" (click)="edit(plan);"></i></div>
             </div>
         </div>
 
@@ -39,7 +40,7 @@
         <div class="modal-content">
           
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Producto</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Plan de empresa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -52,13 +53,21 @@
                     <input id="id" type="text" hidden="" [(ngModel)]="formdata.id" > 
 
                     <div class="row mt-2">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group- lineal">
                                 <label class="control-label" for="name">Nombre</label>
                                 <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.name">
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <div class="form-group- lineal">
+                                <label class="control-label" for="name">Empresa</label>
+                                <select id="frequency" class="form-control" required="" [(ngModel)]="formdata.companyid">
+                                    <option *ngFor="let company of companies">{{company.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <label class="control-label" for="price">Precio</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -80,8 +89,8 @@
                             <div class="form-group">
                                 <label class="control-label" for="frequency">Repetición [cada x meses]</label>
                                 <select id="frequency" class="form-control" required="" [(ngModel)]="formdata.frequency">
-                                    <option value="unique" selected>Único</option>
-                                    <option value="monthly">Mensual</option>
+                                  <option value="unique" selected>Único</option>
+                                  <option value="monthly">Mensual</option>
                                 </select>
                             </div>
                         </div>

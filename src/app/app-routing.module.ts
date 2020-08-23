@@ -22,6 +22,7 @@ import { TimelineComponent } from './views/timeline/timeline.component';
 import { NotfoundComponent } from './componets/notfound/notfound.component';
 import { RootParametersComponent } from './views/root-parameters/root-parameters.component';
 import { RootImagesComponent } from './views/root-images/root-images.component';
+import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
 
 
 const routes: Routes = 
@@ -31,6 +32,7 @@ const routes: Routes =
   { path: 'admin-destinations', component: AdminDestinationsComponent },
   { path: 'admin-manufacturers', component: AdminManufacturersComponent },
   { path: 'admin-products', component: AdminProductsComponent },
+  { path: 'admin-plans', component: AdminPlansComponent },
   { path: 'orders-new', component: OrdersNewComponent },
   { path: 'orders-archive', component: OrdersArchiveComponent },
   { path: 'order-view', component: OrderViewComponent },

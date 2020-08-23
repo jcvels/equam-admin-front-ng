@@ -41,6 +41,7 @@ import { PageHeaderComponent } from './utils/page-header/page-header.component';
 import { RootImagesComponent } from './views/root-images/root-images.component';
 import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
 import { ProfileManagerComponent } from './utils/profile-manager/profile-manager.component';
+import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ProfileManagerComponent } from './utils/profile-manager/profile-manager
     PageHeaderComponent,
     RootImagesComponent,
     ImgManagerComponent,
-    ProfileManagerComponent
+    ProfileManagerComponent,
+    AdminPlansComponent
   ],
   imports: [
     BrowserModule,

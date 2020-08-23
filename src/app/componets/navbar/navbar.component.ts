@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
         {
           "name":"Empresas",
           "link":"admin-companies",
-          "viewon":"root adminññ"
+          "viewon":"root admin"
         },
         {
           "name":"Productos",
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
         },
         {
           "name":"Planes",
-          "link":"admin-plan",
+          "link":"admin-plans",
           "viewon":"root admin"
         }
       ]

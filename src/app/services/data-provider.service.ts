@@ -15,20 +15,26 @@ import { NotifyService } from './notify.service';
 
 export class DataProviderService
 {
-  /* user data 
-  
-  --->> TO DO Cambiar los componentes al metodo getUserInfo y getConfigInfo en vez de acceder a las variables publicas <<---
-  
-  */
-
+  /* user data --->> TO DO Cambiar los componentes al metodo getUserInfo y getConfigInfo en vez de acceder a las variables publicas <<--- */
   public user:any = { "username":"public" };
   public config:any = { "apiurl":"//localhost" };
+
+  /* event emitters */
+  userLogInEventEmitter = new EventEmitter();
+  userEventEmitter = new EventEmitter();
+  usersEventEmitter = new EventEmitter();
+  logsEventEmitter = new EventEmitter();
+  configEventEmitter = new EventEmitter();
+  imageEventEmitter = new EventEmitter();
+  imagesEventEmitter = new EventEmitter();
+  manufacturersEventEmitter = new EventEmitter();
+  parametersEventEmitter = new EventEmitter();
+  destinationsEventEmitter = new EventEmitter();
+  companiesEventEmitter = new EventEmitter();
+  productsEventEmitter = new EventEmitter();
+  plansEventEmitter = new EventEmitter();
   
-  /* proporciona la ruta correcta en funcion del tipo de consulta
-  
-  --->> TO DO: Mejorar performance utilizando un switch case <<---
-  
-  */
+  /* proporciona la ruta correcta en funcion del tipo de consulta --->> TO DO: Mejorar performance utilizando un switch case <<--- */
   private getRoute( name:string )
   {
     /* routes for each data type */
@@ -45,25 +51,14 @@ export class DataProviderService
       "manufacturers":this.getConfigInfo('apiurl') + "/data/manufacturers/",
       "parameters":this.getConfigInfo('apiurl') + "/data/parameters/",
       "destinations":this.getConfigInfo('apiurl') + "/data/destinations/",
-      "companies":this.getConfigInfo('apiurl') + "/data/companies/"
+      "companies":this.getConfigInfo('apiurl') + "/data/companies/",
+      "products":this.getConfigInfo('apiurl') + "/data/products/",
+      "plans":this.getConfigInfo('apiurl') + "/data/plans/"
     };
 
     /* retorna la ruta solicitada */
     return routes[name]; 
   }
-
-  /* event emitters */
-  userLogInEventEmitter = new EventEmitter();
-  userEventEmitter = new EventEmitter();
-  usersEventEmitter = new EventEmitter();
-  logsEventEmitter = new EventEmitter();
-  configEventEmitter = new EventEmitter();
-  imageEventEmitter = new EventEmitter();
-  imagesEventEmitter = new EventEmitter();
-  manufacturersEventEmitter = new EventEmitter();
-  parametersEventEmitter = new EventEmitter();
-  destinationsEventEmitter = new EventEmitter();
-  companiesEventEmitter = new EventEmitter();
 
   /* make emit depens on given event emitter */
   private emitData( route:string, data:any )
@@ -80,6 +75,8 @@ export class DataProviderService
       case 'parameters':      this.parametersEventEmitter.emit( data ); break;
       case 'destinations':    this.destinationsEventEmitter.emit( data ); break;
       case 'companies':       this.companiesEventEmitter.emit( data ); break;
+      case 'products':        this.productsEventEmitter.emit( data ); break;
+      case 'plans':           this.plansEventEmitter.emit( data ); break;
       default: console.error( "La ruta especificada no se encuentra definida" ); break;
     }
   }
