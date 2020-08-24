@@ -1,4 +1,7 @@
-<div class="container mt-3">
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting !=3"></app-wait-spiner>
+
+<div class="container my-3">
 
     <div class="row">
         <div class="col-sm-12">
@@ -10,88 +13,104 @@
     <div class="equam-border mt-3 p-3">
         <div class="text-muted">Información de la venta</div>
         <div class="row mt-3">
-
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label class="control-label" for="classsequence">Tipo de venta</label>
-                    <select class="custom-select" id="status" [(ngModel)]="tipodeventa">
-                        <option selected>Seleccione una opción...</option>
-                        <option value="particular">Particular</option>
-                        <option value="empresa">Empresa</option>
+                    <select class="custom-select" id="status" [(ngModel)]="sale.type">
+                        <option value="retail">Particular</option>
+                        <option value="corporative">Empresa</option>
                     </select>
                 </div>
             </div>
-
-            <div class="col-sm-6" *ngIf="tipodeventa == 'particular'">
+            
+            <!-- show on retail sale -->
+            <div class="col-sm-4 animate__animated animate__fadeIn" *ngIf="sale.type == 'retail'">
                 <div class="form-group">
-                    <label class="control-label" for="classsequence">Medio de contacto</label>
-                    <select class="custom-select" [(ngModel)]="medio">
+                    <label class="control-label">Medio de contacto</label>
+                    <select class="custom-select" [(ngModel)]="sale.reference">
                         <option>Instagram</option>
                         <option>Facebook</option>
-                        <option>Página web</option>
+                        <option>Web</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4 animate__animated animate__fadeIn" *ngIf="sale.type == 'retail'">
+                <div class="form-group">
+                    <label class="control-label" for="classsequence">Producto</label>
+                    <select class="custom-select" (change)="chargeProduct($event);">
+                        <option selected>Seleccione una opción...</option>
+                        <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
                     </select>
                 </div>
             </div>
 
-            <div class="col-sm-6" *ngIf="tipodeventa == 'empresa'">
+            <!-- show on corporative sale -->
+            <div class="col-sm-4 animate__animated animate__fadeIn" *ngIf="sale.type == 'corporative'">
                 <div class="form-group">
                     <label class="control-label" for="classsequence">Empresa</label>
-                    <select class="custom-select" [(ngModel)]="plan">
-                        <option>Peponas</option>
-                        <option>Soma</option>
+                    <select class="custom-select" (change)="filterPlan($event);" [(ngModel)]="sale.companyName" >
+                        <option selected>Seleccione una opción...</option>
+                        <option *ngFor="let company of companies">{{company.name}}</option>
                     </select>
                 </div>
             </div>
-
-        </div>
-
-        <div class="row mt-3 animate__animated animate__slideInUp" *ngIf="plan == 'Peponas'">
-
-            <div class="col-sm-6" *ngIf="tipodeventa == 'empresa'">
+            <div class="col-sm-4 animate__animated animate__fadeIn" *ngIf="sale.type == 'corporative'">
                 <div class="form-group">
                     <label class="control-label" for="classsequence">Plan</label>
-                    <select class="custom-select">
-                        <option>Remera por árbol</option>
-                        <option>Palos por dos árboles</option>
+                    <select class="custom-select" (change)="chargePlan($event);">
+                        <option selected>Seleccione una opción...</option>
+                        <option *ngFor="let plan of plansFilter" [value]="plan.id">{{plan.name}}</option>
                     </select>
                 </div>
             </div>
-
-
         </div>
 
+        <div class="row mt-3">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="name">Comercializador</label>
+                    <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="sale.seler">
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="name">Total</label>
+                    <div class="lead text-danger">${{sale.price}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="equam-border mt-3 p-3 animate__animated animate__slideInUp" *ngIf="medio == 'Instagram'   ">
+    <div class="equam-border mt-3 p-3">
         <div class="text-muted">Información del cliente</div>
-
         <div class="row mt-3">
-
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="control-label" for="name">Nombre</label>
-                    <input id="name" type="text" class="form-control input-md" required="">
+                    <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="sale.customerName">
                 </div>
             </div>
-
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="control-label" for="name">Apellido</label>
-                    <input id="surname" type="text" class="form-control input-md" required="">
+                    <input id="surname" type="text" class="form-control input-md" required="" [(ngModel)]="sale.customerSurname">
                 </div>
             </div>
-
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="control-label" for="name">Correo</label>
-                    <input id="email" type="email" class="form-control input-md" required="">
+                    <input id="email" type="email" class="form-control input-md" required="" [(ngModel)]="sale.customerMail">
                 </div>
             </div>
-
         </div>
-
+        <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary float-right" data-dismiss="modal" (click)="save();">Guardar</button>
+            </div>
+        </div>
     </div>
 
 </div>
-
-

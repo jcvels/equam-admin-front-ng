@@ -23,12 +23,6 @@ export class NavbarComponent implements OnInit {
           "viewon":"root sales"
         },
         {
-          "name":"Ingresar venta",
-          "link":"orders-new",
-          "icon":"fas fa-cart-plus",
-          "viewon":"root sales"
-        },
-        {
           "name":"Empresas",
           "link":"admin-companies",
           "viewon":"root admin"

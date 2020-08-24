@@ -1,1 +1,59 @@
-<p>orders-archive works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="lead">Ventas</div>
+            <div class="text-muted small"></div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-inline ">
+                <h2 class="equam-btn ml-auto float-right" data-toggle="modal" data-target="#modalform"><i class="fas fa-plus-circle"></i></h2>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <!-- cabecera -->
+        <div class="border-bottom p-1 mt-3 equam-hover bg-light">
+            <div class="row">
+                <div class="col-sm-1">Fecha</div>
+                <div class="col-sm-1">Tipo</div>
+                <div class="col-sm-4">Producto</div>
+                <div class="col-sm-1">Cantidad</div>
+                <div class="col-sm-2">Repetición</div>
+                <div class="col-sm-1">Vigencia</div>
+                <div class="col-sm-2">Price</div>
+            </div>
+        </div>
+
+        <!-- datos -->
+        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let sale of sales">
+            <div class="row">
+                <div class="col-md-1">{{sale.creation | date:'shortDate' }}</div>
+                <div class="col-md-1">
+                    <span *ngIf="sale.type == 'retail'">Particular</span>
+                    <span *ngIf="sale.type == 'corporative'">Empresa</span>
+                </div>
+                <div class="col-md-4">{{sale.productName}}</div>
+                <div class="col-md-1">{{sale.productQtty}}</div>
+                <div class="col-md-2">
+                    <span *ngIf="sale.productFrequency == 'unique'">Único</span>
+                    <span *ngIf="sale.productFrequency == 'monthly'">Mensual</span>
+                </div>
+                <div class="col-md-1">{{sale.productTerm}}</div>
+                <div class="col-md-2">${{sale.price}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal form -->
+<div id="modalform" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalform" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <app-orders-new></app-orders-new>
+        </div>
+    </div>
+</div>

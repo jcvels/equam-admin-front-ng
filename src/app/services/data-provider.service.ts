@@ -33,6 +33,8 @@ export class DataProviderService
   companiesEventEmitter = new EventEmitter();
   productsEventEmitter = new EventEmitter();
   plansEventEmitter = new EventEmitter();
+  salesEventEmitter = new EventEmitter();
+  productionEventEmitter = new EventEmitter();
   
   /* proporciona la ruta correcta en funcion del tipo de consulta --->> TO DO: Mejorar performance utilizando un switch case <<--- */
   private getRoute( name:string )
@@ -53,7 +55,9 @@ export class DataProviderService
       "destinations":this.getConfigInfo('apiurl') + "/data/destinations/",
       "companies":this.getConfigInfo('apiurl') + "/data/companies/",
       "products":this.getConfigInfo('apiurl') + "/data/products/",
-      "plans":this.getConfigInfo('apiurl') + "/data/plans/"
+      "plans":this.getConfigInfo('apiurl') + "/data/plans/",
+      "sales":this.getConfigInfo('apiurl') + "/ops/sales/",
+      "production":this.getConfigInfo('apiurl') + "/ops/production/",
     };
 
     /* retorna la ruta solicitada */
@@ -77,6 +81,8 @@ export class DataProviderService
       case 'companies':       this.companiesEventEmitter.emit( data ); break;
       case 'products':        this.productsEventEmitter.emit( data ); break;
       case 'plans':           this.plansEventEmitter.emit( data ); break;
+      case 'sales':           this.salesEventEmitter.emit( data ); break;
+      case 'production':      this.productionEventEmitter.emit( data ); break;
       default: console.error( "La ruta especificada no se encuentra definida" ); break;
     }
   }

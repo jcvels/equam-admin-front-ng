@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-orders-archive',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersArchiveComponent implements OnInit {
 
-  constructor() { }
+  waiting:boolean = true;
+  sales:any;
 
-  ngOnInit(): void {
+  constructor( private data:DataProviderService ) { }
+
+  ngOnInit(): void
+  {
+    this.data.salesEventEmitter.subscribe( data => { this.sales = data; this.waiting = false; } );
+    this.data.list('sales');
   }
 
 }
