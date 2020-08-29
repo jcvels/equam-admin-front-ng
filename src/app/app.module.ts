@@ -42,6 +42,7 @@ import { RootImagesComponent } from './views/root-images/root-images.component';
 import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
 import { ProfileManagerComponent } from './utils/profile-manager/profile-manager.component';
 import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
+import { ProductionEditorComponent } from './views/production-editor/production-editor.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
     RootImagesComponent,
     ImgManagerComponent,
     ProfileManagerComponent,
-    AdminPlansComponent
+    AdminPlansComponent,
+    ProductionEditorComponent
   ],
   imports: [
     BrowserModule,

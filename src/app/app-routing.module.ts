@@ -23,6 +23,7 @@ import { NotfoundComponent } from './componets/notfound/notfound.component';
 import { RootParametersComponent } from './views/root-parameters/root-parameters.component';
 import { RootImagesComponent } from './views/root-images/root-images.component';
 import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
+import { ProductionEditorComponent } from './views/production-editor/production-editor.component';
 
 
 const routes: Routes = 
@@ -37,6 +38,7 @@ const routes: Routes =
   { path: 'orders-archive', component: OrdersArchiveComponent },
   { path: 'order-view', component: OrderViewComponent },
   { path: 'production-active', component: ProductionActiveComponent },
+  { path: 'production-editor/:id', component: ProductionEditorComponent },
   { path: 'production-archive', component: ProductionArchiveComponent },
   { path: 'productors-active', component: ProductorsActiveComponent },
   { path: 'productors-archive', component: ProductorsArchiveComponent },

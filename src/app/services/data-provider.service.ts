@@ -17,7 +17,7 @@ export class DataProviderService
 {
   /* user data --->> TO DO Cambiar los componentes al metodo getUserInfo y getConfigInfo en vez de acceder a las variables publicas <<--- */
   public user:any = { "username":"public" };
-  public config:any = { "apiurl":"//localhost" };
+  public config:any = { "apiurl":"" }; 
 
   /* event emitters */
   userLogInEventEmitter = new EventEmitter();
