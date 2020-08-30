@@ -20,11 +20,13 @@
             <div class="row">
                 <div class="col-sm-1">Fecha</div>
                 <div class="col-sm-1">Tipo</div>
-                <div class="col-sm-4">Producto</div>
+                <div class="col-sm-2">Vendedor</div>
+                <div class="col-sm-1">Empresa</div>
+                <div class="col-sm-2">Producto</div>
                 <div class="col-sm-1">Cantidad</div>
-                <div class="col-sm-2">Repetición</div>
+                <div class="col-sm-1">Repetición</div>
                 <div class="col-sm-1">Vigencia</div>
-                <div class="col-sm-2">Price</div>
+                <div class="col-sm-2">Precio</div>
             </div>
         </div>
 
@@ -36,9 +38,11 @@
                     <span *ngIf="sale.type == 'retail'">Particular</span>
                     <span *ngIf="sale.type == 'corporative'">Empresa</span>
                 </div>
-                <div class="col-md-4">{{sale.productName}}</div>
+                <div class="col-md-2">{{sale.seler}}</div>
+                <div class="col-md-1">{{sale.companyName}}</div>
+                <div class="col-md-2">{{sale.productName}}</div>
                 <div class="col-md-1">{{sale.productQtty}}</div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <span *ngIf="sale.productFrequency == 'unique'">Único</span>
                     <span *ngIf="sale.productFrequency == 'monthly'">Mensual</span>
                 </div>

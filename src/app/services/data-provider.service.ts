@@ -58,6 +58,9 @@ export class DataProviderService
       "plans":this.getConfigInfo('apiurl') + "/data/plans/",
       "sales":this.getConfigInfo('apiurl') + "/ops/sales/",
       "production":this.getConfigInfo('apiurl') + "/ops/production/",
+      "productionActual":this.getConfigInfo('apiurl') + "/ops/production/?filter=actual",
+      "productionHistory":this.getConfigInfo('apiurl') + "/ops/production/?filter=history",
+      "productionFuture":this.getConfigInfo('apiurl') + "/ops/production/?filter=future",
       "updates":this.getConfigInfo('apiurl') + "/ops/production/updates.php"
     };
 
@@ -70,22 +73,25 @@ export class DataProviderService
   {
     switch( route )
     {
-      case 'users':           this.usersEventEmitter.emit( data ); break;
-      case 'user':            this.userEventEmitter.emit( data ); break;
-      case 'logs':            this.logsEventEmitter.emit( data ); break;
-      case 'config':          this.configEventEmitter.emit( data ); break;
-      case 'images':          this.imagesEventEmitter.emit( data ); break;
-      case 'imgSel':          this.imagesEventEmitter.emit( data ); break;
-      case 'manufacturers':   this.manufacturersEventEmitter.emit( data ); break;
-      case 'parameters':      this.parametersEventEmitter.emit( data ); break;
-      case 'destinations':    this.destinationsEventEmitter.emit( data ); break;
-      case 'companies':       this.companiesEventEmitter.emit( data ); break;
-      case 'products':        this.productsEventEmitter.emit( data ); break;
-      case 'plans':           this.plansEventEmitter.emit( data ); break;
-      case 'sales':           this.salesEventEmitter.emit( data ); break;
-      case 'production':      this.productionEventEmitter.emit( data ); break;
-      case 'updates':         this.updatesEventEmitter.emit( data ); break;
-      default: console.error( "La ruta especificada no se encuentra definida" ); break;
+      case 'users':             this.usersEventEmitter.emit( data );          break;
+      case 'user':              this.userEventEmitter.emit( data );           break;
+      case 'logs':              this.logsEventEmitter.emit( data );           break;
+      case 'config':            this.configEventEmitter.emit( data );         break;
+      case 'images':            this.imagesEventEmitter.emit( data );         break;
+      case 'imgSel':            this.imagesEventEmitter.emit( data );         break;
+      case 'manufacturers':     this.manufacturersEventEmitter.emit( data );  break;
+      case 'parameters':        this.parametersEventEmitter.emit( data );     break;
+      case 'destinations':      this.destinationsEventEmitter.emit( data );   break;
+      case 'companies':         this.companiesEventEmitter.emit( data );      break;
+      case 'products':          this.productsEventEmitter.emit( data );       break;
+      case 'plans':             this.plansEventEmitter.emit( data );          break;
+      case 'sales':             this.salesEventEmitter.emit( data );          break;
+      case 'production':        this.productionEventEmitter.emit( data );     break;
+      case 'productionActual':  this.productionEventEmitter.emit( data );     break;
+      case 'productionHistory': this.productionEventEmitter.emit( data );     break;
+      case 'productionFuture':  this.productionEventEmitter.emit( data );     break;
+      case 'updates':           this.updatesEventEmitter.emit( data );        break;
+      default: console.error( "RUTA NO DEFINIDA" ); break;
     }
   }
   

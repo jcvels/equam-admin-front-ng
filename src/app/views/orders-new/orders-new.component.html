@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-                <div class="lead">Venta</div>
+                <div class="lead">Comercialización</div>
                 <div class="text-muted small">Ingresar datos de una nueva venta</div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             <div class="col-sm-4 animate__animated animate__fadeIn" *ngIf="sale.type == 'retail'">
                 <div class="form-group">
                     <label class="control-label">Medio de contacto</label>
-                    <select class="custom-select" [(ngModel)]="sale.reference">
+                    <select class="custom-select" (change)="filterPlan($event);" [(ngModel)]="sale.companyName" >
                         <option>Instagram</option>
                         <option>Facebook</option>
                         <option>Web</option>
@@ -108,6 +108,7 @@
         <div class="row">
             <div class="col-sm-8"></div>
             <div class="col-sm-4">
+                <button class="btn btn-secondary" data-dismiss="modal" (click)="clearForm();">Cancelar</button>
                 <button class="btn btn-primary float-right" data-dismiss="modal" (click)="save();">Guardar</button>
             </div>
         </div>

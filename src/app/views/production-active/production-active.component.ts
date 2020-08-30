@@ -9,7 +9,7 @@ import { DataProviderService } from 'src/app/services/data-provider.service';
 })
 export class ProductionActiveComponent implements OnInit {
 
-  waiting:number = 0;
+  waiting:boolean = true;
 
   processNew:any = [];
   processWorking:any = [];
@@ -24,35 +24,35 @@ export class ProductionActiveComponent implements OnInit {
   {
     this.data.productionEventEmitter.subscribe( data =>
       {
-        this.processNew = data.filter( item => Number( item.statusid ) == 0 );
-
-        if ( this.data.roleValidate("productor") )
+        if( data != null )
         {
-          this.processWorking = data
-            .filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 )
-            .filter( item => item.manufacturerid == this.data.getUserInfo('id') );
+          if ( this.data.roleValidate("productor") )
+          {
+            this.processWorking = data
+              .filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 )
+              .filter( item => item.manufacturerid == this.data.getUserInfo('id') )
+          }
+          else
+          {
+            this.processNew = data.filter( item => Number( item.statusid ) == 0 );
+            this.processWorking = data.filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 );
+            this.processToClose = data.filter( item => Number( item.statusid ) >= 50 && Number( item.statusid )< 100 );
+          }
         }
-        else
-        {
-          this.processWorking = data.filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 );
-        }
-        this.processToClose = data.filter( item => Number( item.statusid ) >= 50 && Number( item.statusid )< 100 );
-        this.waiting += 1;
+        this.waiting = false;
       }
     );
     this.data.manufacturersEventEmitter.subscribe( data =>
       {
         this.manufacturers = data;
-        this.waiting += 1;
       }
     );
     this.data.destinationsEventEmitter.subscribe( data =>
       {
         this.destinations = data;
-        this.waiting += 1;
       }
     );
-    this.data.list('production');
+    this.data.list('productionActual');
     this.data.list('manufacturers');
     this.data.list('destinations');
   }

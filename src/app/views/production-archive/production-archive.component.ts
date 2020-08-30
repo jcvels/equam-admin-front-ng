@@ -18,22 +18,21 @@ export class ProductionArchiveComponent implements OnInit {
   {
     this.data.productionEventEmitter.subscribe( data =>
       {
-        if ( this.data.roleValidate('productor') )
+        if ( data != null )
         {
-          this.processArchive = data
-            .filter( item => Number( item.statusid ) == 100 )
-            .filter( item => item.manufacturerid == this.data.getUserInfo('id') );
+          if ( this.data.roleValidate('productor') )
+          {
+            this.processArchive = data.filter( item => item.manufacturerid == this.data.getUserInfo('id') );
+          }
+          else
+          {
+            this.processArchive = data;
+          }
+          this.waiting = false;
         }
-        else
-        {
-          this.processArchive = data
-            .filter( item => Number( item.statusid ) == 100 )
-        }
-        this.waiting = false;
       }
     );
-    this.data.list('production');
-    
+    this.data.list('productionHistory');
     this.tmlurl = this.data.getConfigInfo('tmlurl');
   }
 

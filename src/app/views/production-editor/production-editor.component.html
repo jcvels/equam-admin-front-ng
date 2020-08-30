@@ -35,9 +35,10 @@
         </div>
 
         <div class="row p-1 mt-1 bg-light" id="sales">
-            <div class="col-sm-4">Tipo de venta: <span class="equam-color">{{formdata.type}}</span> </div>
-            <div class="col-sm-4">Cliente: <span class="equam-color">{{formdata.customerName}} {{formdata.customerSurname}}</span> </div>
-            <div class="col-sm-4">Correo: <span class="equam-color">{{formdata.customerMail}}</span> </div>
+            <div class="col-sm-3">Tipo de venta: <span class="equam-color">{{formdata.type}}</span> </div>
+            <div class="col-sm-3">Empresa: <span class="equam-color">{{formdata.customerCompany}}</span> </div>
+            <div class="col-sm-3">Cliente: <span class="equam-color">{{formdata.customerName}} {{formdata.customerSurname}}</span> </div>
+            <div class="col-sm-3">Correo: <span class="equam-color">{{formdata.customerMail}}</span> </div>
         </div>
     </div>
 
@@ -150,8 +151,7 @@
                     <div class="card-body">
                         <div class="lead">Rustificación</div>
                         <div class="equam-color" *ngIf="rust.pictureid != 0">{{ rust.date | date:'dd/MM/yyyy' }}</div>
-                        <small class="text-muted" *ngIf="formdata.product.rust == '1'">(obligatorio)</small>
-                        <small class="text-muted" *ngIf="formdata.product.rust == '0'">(opcional)</small>
+                        <small class="text-muted">(obligatorio)</small>
                     </div>
                     <div class="equam-overlay d-flex">
                         <div class="my-auto mx-auto">

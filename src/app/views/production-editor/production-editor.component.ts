@@ -75,10 +75,22 @@ export class ProductionEditorComponent implements OnInit {
     if ( confirm( "¿Confirma la asignación?" ) )
     {
       this.waiting = true;
-      this.data.update( 'production', this.formdata );
+      this.data.update( 'productionActual', this.formdata );
       
       /* actualizo estado del proceso */
       this.checkStatus();
+
+      /* mail de asignación */
+      let mail:any =
+      { 
+        "mailsubject":"Tu árbol continúa creciendo",
+        "mailsendto":this.formdata.customerMail,
+        "mailtitle":"Hola " + this.formdata.customerName + "!!" ,
+        "mailmessage":"Te contamos que tu árbol ya tiene un productor asignado. Podes saber más sobre su crecimiento, quien lo cuida y su lugar de destino, accediendo al siguiente enlace. Solo te pediremos tu direccion de correo!.<br><br><a href='" + this.data.getConfigInfo('tmlurl') +"'>Ver mi árbol Equam<a><br><br>"
+      };
+
+      /* envio mail */
+      this.data.sendMail( mail );
     }
   }
 
@@ -87,7 +99,7 @@ export class ProductionEditorComponent implements OnInit {
     if ( confirm( "¿Confirma la asignación?" ) )
     {
       this.waiting = true;
-      this.data.update( 'production', this.formdata );
+      this.data.update( 'productionActual', this.formdata );
       
       /* actualizo estado del proceso */
       this.checkStatus();
@@ -132,7 +144,21 @@ export class ProductionEditorComponent implements OnInit {
 
     if ( status >= 70 )
     {
+      /* cierro el proceso */
       status = 100;
+
+      
+      /* mail de asignación */
+      let mail:any =
+      { 
+        "mailsubject":"Tu árbol continúa creciendo",
+        "mailsendto":this.formdata.customerMail,
+        "mailtitle":"Hola " + this.formdata.customerName + "!!" ,
+        "mailmessage":"Te contamos que tu árbol ya tiene un receptor asignado. Podes saber más sobre su crecimiento, quien lo cuida y su lugar de destino, accediendo al siguiente enlace. Solo te pediremos tu direccion de correo!.<br><br><a href='" + this.data.getConfigInfo('tmlurl') +"'>Ver mi árbol Equam<a><br><br>"
+      };
+
+      /* envio mail */
+      this.data.sendMail( mail )
     }
 
     /* muestro notificacion de la actualizacion de estado */
@@ -142,7 +168,7 @@ export class ProductionEditorComponent implements OnInit {
     this.formdata.statusid = status.toString();
 
     /* envio la actualizacion al servidor */
-    this.data.update( 'production', this.formdata );
+    this.data.update( 'productionActual', this.formdata );
 
   }
 
@@ -171,7 +197,7 @@ export class ProductionEditorComponent implements OnInit {
     this.onEdit = "";
 
     /* vuelvo a cargar los processos */
-    this.data.list('production');
+    this.data.listOne('production', this.processid.toString() );
 
     /* actualizo estado del proceso */
     this.checkStatus();
@@ -194,7 +220,7 @@ export class ProductionEditorComponent implements OnInit {
     }
 
     /* vuelvo a cargar los processos */
-    this.data.list('production');
+    this.data.listOne('production', this.processid.toString() );
     
     /* actualizo estado del proceso */
     this.checkStatus();
@@ -232,6 +258,7 @@ export class ProductionEditorComponent implements OnInit {
       "customerName": "",
       "customerSurname": "",
       "customerMail": "",
+      "customerCompany": "",
       "active": "",
       "creation": "",
       "lastchange": "",
