@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload'; 
 import { ChartsModule } from 'ng2-charts';
@@ -43,6 +43,7 @@ import { ImgManagerComponent } from './utils/img-manager/img-manager.component';
 import { ProfileManagerComponent } from './utils/profile-manager/profile-manager.component';
 import { AdminPlansComponent } from './views/admin-plans/admin-plans.component';
 import { ProductionEditorComponent } from './views/production-editor/production-editor.component';
+import { StatusTransformComponent } from './utils/status-transform/status-transform.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { ProductionEditorComponent } from './views/production-editor/production-
     ImgManagerComponent,
     ProfileManagerComponent,
     AdminPlansComponent,
-    ProductionEditorComponent
+    ProductionEditorComponent,
+    StatusTransformComponent
   ],
   imports: [
     BrowserModule,

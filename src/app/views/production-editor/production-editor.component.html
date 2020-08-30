@@ -1,14 +1,14 @@
 <!-- data loading spiner -->
-<app-wait-spiner *ngIf="waiting != 3"></app-wait-spiner>
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
 
-<div class="container mt-3">
+<div class="container mt-3" *ngIf="data.roleValidate('root production productor')">
     <div class="row">
         <div class="col-sm-6">
             <div class="lead">Administración de la producción</div>
             <div class="text-muted small">Edicion de proceso</div>
         </div>
         <div class="col-sm-6">
-            <div class="float-right equam-hover" href="javascript: history.go(-1)"><i class="fas fa-times"></i> Cerrar</div>
+            <div class="float-right equam-hover" (click)="close();"><i class="fas fa-times"></i> Cerrar</div>
         </div>
     </div>
 </div>
@@ -20,34 +20,36 @@
             <div class="col-sm-12 lead">Información general</div>
         </div>
                     
-        <div class="collapse row p-1 mt-3 bg-light" id="info">
-            <div class="col-sm-4">Identificador: <span class="col-sm-2 equam-color">#{{formdata.id}}</span> </div>
-            <div class="col-sm-4">Fecha de inicio: <span class="col-sm-2 equam-color">{{formdata.startdate | date:'MMM/yy'}}</span> </div>
-            <div class="col-sm-4">Estado: <span class="col-sm-2 equam-color">{{formdata.statusid}}</span> </div>
+        <div class="row p-1 mt-1 bg-light" id="info">
+            <div class="col-sm-2">Identificador: <span class="equam-color">#{{formdata.id}}</span> </div>
+            <div class="col-sm-2">Inicio: <span class="equam-color">{{formdata.startdate | date:'MMMM yyyy'}}</span> </div>
+            <div class="col-sm-3">Estado: <span class="equam-color"><app-status-transform [statusid]="formdata.statusid"></app-status-transform></span> </div>
+            <div class="col-sm-3">Árbol: <span class="equam-color strong">{{formdata.product.name}}</span> </div>
+            <div class="col-sm-2">Cantidad: <strong class="equam-color strong">{{formdata.product.qtty}}</strong> </div>
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light">
+    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
         <div class="row equam-hover" data-toggle="collapse" href="#sales">
             <div class="col-sm-12 lead">Información venta y cliente</div>
         </div>
 
-        <div class="collapse row p-1 mt-3 bg-light" id="sales">
+        <div class="row p-1 mt-1 bg-light" id="sales">
             <div class="col-sm-4">Tipo de venta: <span class="equam-color">{{formdata.type}}</span> </div>
             <div class="col-sm-4">Cliente: <span class="equam-color">{{formdata.customerName}} {{formdata.customerSurname}}</span> </div>
             <div class="col-sm-4">Correo: <span class="equam-color">{{formdata.customerMail}}</span> </div>
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light">
+    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
         <div class="row equam-hover" data-toggle="collapse" href="#asign">
             <div class="col-sm-12 lead">Asignación</div>
         </div>
 
-        <div class="collapse row p-1 mt-3 bg-light" id="asign">
+        <div class="row p-1 mt-1 bg-light" id="asign">
             <div class="col-sm-1">Productor</div>
             <div class="col-sm-4">
-                <select style="width: 90%;" [(ngModel)]="formdata.manufacturerid">
+                <select style="width: 90%; border: none;" [(ngModel)]="formdata.manufacturerid" class="bg-light border-bottom">
                     <option value="0" selected>(sin asignar)</option>
                     <option *ngFor="let item of manufacturers" [value]="item.id">{{item.name}} {{item.surname}} ({{item.id}})</option>
                 </select>
@@ -56,7 +58,7 @@
 
             <div class="col-sm-1">Receptor</div>
             <div class="col-sm-4">
-                <select style="width: 90%;" [(ngModel)]="formdata.destinationid">
+                <select style="width: 90%; border: none;" [(ngModel)]="formdata.destinationid" class="bg-light border-bottom">
                     <option value="0" selected>(sin asignar)</option>
                     <option *ngFor="let item of destinations" [value]="item.id">{{item.name}} {{item.surname}}</option>
                 </select>
@@ -71,136 +73,94 @@
         </div>
 
         <div class="row p-1 mt-3 bg-light" id="proccess">
-            <div class="col-sm-6">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="lead">Germinación</div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Estado</div>
-                                    <div class="col-8 equam-color">Completo</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Fecha</div>
-                                    <div class="col-8 equam-color">16 de Julio de 2020</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Notas</div>
-                                    <div class="col-8 equam-color">Mal clima durante toda la temporada</div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4 p-3">
-                            <img src="../../../assets/equam-logo.jpg" class="card-img" alt="...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 p-3">
-                            <img src="../../../assets/equam-logo.jpg" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="lead">Primer repique</div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Estado</div>
-                                    <div class="col-8 equam-color">Pendiente</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Fecha</div>
-                                    <div class="col-8 equam-color">-</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
-            <div class="col-sm-6">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 p-3">
-                            <img src="../../../assets/equam-logo.jpg" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="lead">Segundo repique</div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Estado</div>
-                                    <div class="col-8 equam-color">Pendiente</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Fecha</div>
-                                    <div class="col-8 equam-color">-</div>
-                                </div>
-
-                            </div>
+            <!-- GERMINACIÓN -->
+            <div class="col-sm-3 mt-1">
+                <div class="card equam-card">
+                    <img [src]=" apiurl + '/data/images/?id=' + germ.pictureid " class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <div class="lead">Germinación</div>
+                        <div class="equam-color" *ngIf="germ.pictureid != 0">{{ germ.date | date:'dd/MM/yyyy' }}</div>
+                        <small class="text-muted" *ngIf="formdata.product.germ == '1'">(obligatorio)</small>
+                        <small class="text-muted" *ngIf="formdata.product.germ == '0'">(opcional)</small>
+                    </div>
+                    <div class="equam-overlay d-flex">
+                        <div class="my-auto mx-auto">
+                            <span class="equam-hover mr-5 h3">
+                                <i class="fas fa-edit" title="Editar" (click)="edit('germ');" data-toggle="modal" data-target="#imgManagerModal"></i>
+                            </span>
+                            <span class="equam-hover h3">
+                                <i class="fas fa-trash" title="Eliminar" (click)="deleteUpdate('germ');"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-6">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4 p-3">
-                            <img src="../../../assets/equam-logo.jpg" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <div class="lead">Rustificación</div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Estado</div>
-                                    <div class="col-8 equam-color">Pendiente</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Fecha</div>
-                                    <div class="col-8 equam-color">-</div>
-                                </div>
-
-                            </div>
+            <!-- PRIMER REPIQUE -->
+            <div class="col-sm-3 mt-1">
+                <div class="card equam-card">
+                    <img [src]=" apiurl + '/data/images/?id=' + repic1.pictureid " class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <div class="lead">Primer repique</div>
+                        <div class="equam-color" *ngIf="repic1.pictureid != 0">{{ repic1.date | date:'dd/MM/yyyy' }}</div>
+                        <small class="text-muted" *ngIf="formdata.product.repic1 == '1'">(obligatorio)</small>
+                        <small class="text-muted" *ngIf="formdata.product.repic1 == '0'">(opcional)</small>
+                    </div>
+                    <div class="equam-overlay d-flex">
+                        <div class="my-auto mx-auto">
+                            <span class="equam-hover mr-5 h3">
+                                <i class="fas fa-edit" title="Editar" (click)="edit('repic1');" data-toggle="modal" data-target="#imgManagerModal"></i>
+                            </span>
+                            <span class="equam-hover h3">
+                                <i class="fas fa-trash" title="Eliminar" (click)="deleteUpdate('repic1');"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-12">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-2 p-3">
-                            <img src="../../../assets/equam-logo.jpg" class="card-img" alt="...">
+            <!-- SEGUNDO REPIQUE -->
+            <div class="col-sm-3 mt-1">
+                <div class="card equam-card">
+                    <img [src]=" apiurl + '/data/images/?id=' + repic2.pictureid " class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <div class="lead">Segundo repique</div>
+                        <div class="equam-color" *ngIf="repic2.pictureid != 0">{{ repic2.date | date:'dd/MM/yyyy' }}</div>
+                        <small class="text-muted" *ngIf="formdata.product.repic2 == '1'">(obligatorio)</small>
+                        <small class="text-muted" *ngIf="formdata.product.repic2 == '0'">(opcional)</small>
+                    </div>
+                    <div class="equam-overlay d-flex">
+                        <div class="my-auto mx-auto">
+                            <span class="equam-hover mr-5 h3">
+                                <i class="fas fa-edit" title="Editar" (click)="edit('repic2');" data-toggle="modal" data-target="#imgManagerModal"></i>
+                            </span>
+                            <span class="equam-hover h3">
+                                <i class="fas fa-trash" title="Eliminar" (click)="deleteUpdate('repic2');"></i>
+                            </span>
                         </div>
-                        <div class="col-md-10">
-                            <div class="card-body">
-                                <div class="lead">Plantación final</div>
+                    </div>
+                </div>
+            </div>
 
-                                <div class="row mt-1">
-                                    <div class="col-4">Estado</div>
-                                    <div class="col-8 equam-color">Pendiente</div>
-                                </div>
-
-                                <div class="row mt-1">
-                                    <div class="col-4">Fecha</div>
-                                    <div class="col-8 equam-color">-</div>
-                                </div>
-
-                            </div>
+            <!-- RUSTIFICACIÓN -->
+            <div class="col-sm-3 mt-1">
+                <div class="card equam-card">
+                    <img [src]=" apiurl + '/data/images/?id=' + rust.pictureid " class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <div class="lead">Rustificación</div>
+                        <div class="equam-color" *ngIf="rust.pictureid != 0">{{ rust.date | date:'dd/MM/yyyy' }}</div>
+                        <small class="text-muted" *ngIf="formdata.product.rust == '1'">(obligatorio)</small>
+                        <small class="text-muted" *ngIf="formdata.product.rust == '0'">(opcional)</small>
+                    </div>
+                    <div class="equam-overlay d-flex">
+                        <div class="my-auto mx-auto">
+                            <span class="equam-hover mr-5 h3">
+                                <i class="fas fa-edit" title="Editar" (click)="edit('rust');" data-toggle="modal" data-target="#imgManagerModal"></i>
+                            </span>
+                            <span class="equam-hover h3">
+                                <i class="fas fa-trash" title="Eliminar" (click)="deleteUpdate('rust');"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -208,7 +168,39 @@
 
         </div>
     </div>
-    
+
+    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
+        <div class="row equam-hover" data-toggle="collapse" href="#close">
+            <div class="col-sm-12 lead">Destino</div>
+        </div>
+
+        <div class="row p-1 mt-3 bg-light" id="close">
+
+            <!-- PLANTACIÓN DEFINITIVA -->
+            <div class="col-sm-3 mt-1">
+                <div class="card equam-card">
+                    <img [src]=" apiurl + '/data/images/?id=' + plant.pictureid " class="card-img-top" alt="" >
+                    <div class="card-body">
+                        <div class="lead">Plantación definitiva</div>
+                        <div class="equam-color" *ngIf="plant.pictureid != 0">{{ plant.date | date:'dd/MM/yyyy' }}</div>
+                        <small class="text-muted">(obligatorio)</small>
+                    </div>
+                    <div class="equam-overlay d-flex">
+                        <div class="my-auto mx-auto">
+                            <span class="equam-hover mr-5 h3">
+                                <i class="fas fa-edit" title="Editar" (click)="edit('plant');" data-toggle="modal" data-target="#imgManagerModal"></i>
+                            </span>
+                            <span class="equam-hover h3">
+                                <i class="fas fa-trash" title="Eliminar" (click)="deleteUpdate('plant');"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
 </div>
 
 <!-- seleción de imágenes -->

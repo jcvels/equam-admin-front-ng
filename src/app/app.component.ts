@@ -19,6 +19,8 @@ export class AppComponent
   ngOnInit(): void
   {
     this.data.userLogInEventEmitter.subscribe( data => this.userlogin = data );
+    console.clear();
+    console.warn( " Welcome to EQUAM Admin APP powered by UVCoding < info@uvcoding.com.ar > ");
   }
 
 }

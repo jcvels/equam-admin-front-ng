@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
   selector: 'app-production-archive',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductionArchiveComponent implements OnInit {
 
-  constructor() { }
+  waiting:boolean = true;
+  processArchive:any = [];
+  tmlurl:string;
 
-  ngOnInit(): void {
+  constructor( public data:DataProviderService ) { }
+
+  ngOnInit(): void
+  {
+    this.data.productionEventEmitter.subscribe( data =>
+      {
+        if ( this.data.roleValidate('productor') )
+        {
+          this.processArchive = data
+            .filter( item => Number( item.statusid ) == 100 )
+            .filter( item => item.manufacturerid == this.data.getUserInfo('id') );
+        }
+        else
+        {
+          this.processArchive = data
+            .filter( item => Number( item.statusid ) == 100 )
+        }
+        this.waiting = false;
+      }
+    );
+    this.data.list('production');
+    
+    this.tmlurl = this.data.getConfigInfo('tmlurl');
   }
 
 }

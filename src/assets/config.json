@@ -1,4 +1,5 @@
 {
     "apiurl":"//localhost",
-    "appurl":"http://equam.uvcoding.com.ar"
+    "appurl":"http://equam.uvcoding.com.ar",
+    "tmlurl":"http://timeline.uvcoding.com.ar"
 }

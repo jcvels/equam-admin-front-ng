@@ -49,7 +49,7 @@ export class RootProfileComponent implements OnInit {
         "mailsubject":"Cambio de contraseña",
         "mailsendto":this.formdata.email,
         "mailtitle":"Cambio de contraseña",
-        "mailmessage":"Te enviamos este correo porque solicitaste el cambio de tu contraseña. Si no fue así, por favor, contacta inmediatamente al administrador del sistema.<br><br>Para cambiar tu contraseña, por favor, seguí el siguiente enlace.<br><br><a href='localhost/data/users/user-password-set.php?mail=" + this.formdata.email +"'>Cambiar contraseña<a><br><br>" 
+        "mailmessage":"Te enviamos este correo porque solicitaste el cambio de tu contraseña. Si no fue así, por favor, contacta inmediatamente al administrador del sistema.<br><br>Para cambiar tu contraseña, por favor, seguí el siguiente enlace.<br><br><a href='" + this.apiurl  + "/data/users/user-password-set.php?mail=" + this.formdata.email +"'>Cambiar contraseña<a><br><br>" 
       };
 
       /* envio mensaje de restauración */

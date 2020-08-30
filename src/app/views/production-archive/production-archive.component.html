@@ -1,1 +1,40 @@
-<p>production-archive works!</p>
+<!-- data loading spiner -->
+<app-wait-spiner *ngIf="waiting"></app-wait-spiner>
+
+<div class="container mt-3">
+
+    <div class="row">
+        <div class="col-sm-6">
+                <div class="lead">Administración de la producción</div>
+                <div class="text-muted small">Historial de procesos</div>
+        </div>
+    </div>
+
+    <!-- cabecera -->
+    <div class="border-bottom p-1 mt-3 equam-hover bg-light">
+        <div class="row">
+            <div class="col-sm-1">ID</div>
+            <div class="col-sm-2">Producto</div>
+            <div class="col-sm-2">Productor</div>
+            <div class="col-sm-2">Receptor</div>
+            <div class="col-sm-2">Inicio</div>
+            <div class="col-sm-2">Fin</div>
+            <div class="col-sm-1">Timeline</div>
+        </div>
+    </div>
+
+    <!-- datos -->
+    <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processArchive">
+        <div class="row">
+            <div class="col-md-1">#{{process.id}}</div>
+            <div class="col-md-2">{{process.product.name}}</div>
+            <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
+            <div class="col-md-2">{{process.destination.name}}</div>
+            <div class="col-md-2">{{process.startdate | date:'MMMM yyyy'}}</div>
+            <div class="col-md-2">{{process.lastchange | date:'MMMM yyyy'}}</div>
+            <div class="col-md-1"><a [href]=" tmlurl + '/view/' + process.id " target="_blank"> <i class="fas fa-external-link-alt equam-hover"></i>  </a></div>
+
+        </div>
+    </div>
+
+</div>

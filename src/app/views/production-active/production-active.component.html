@@ -4,123 +4,80 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-sm-6">
-                <div class="lead">Producción</div>
-                <div class="text-muted small">Gestión de los trabajos en curso</div>
+                <div class="lead">Administración de la producción</div>
+                <div class="text-muted small">Gestión de los procesos en curso</div>
         </div>
-    </div> 
+    </div>
+
+    <!-- cabecera -->
+    <div class="border-bottom p-1 mt-3 equam-hover bg-light">
+        <div class="row">
+            <div class="col-sm-1">ID</div>
+            <div class="col-sm-2">Estado</div>
+            <div class="col-sm-2">Producto</div>
+            <div class="col-sm-2">Productor</div>
+            <div class="col-sm-2">Receptor</div>
+            <div class="col-sm-2">Vigencia</div>
+        </div>
+    </div>
     
-    <div class="border-bottom p-1 mt-3 equam-hover bg-light">
-        <div class="row" data-toggle="collapse" href="#processNew">
-            <div class="col-sm-12">Procesos sin asignar ( {{ processNew.length }} )</div>
+    <div class="border-bottom p-1 mt-1 bg-light" *ngIf="data.roleValidate('root production')">
+        <div class="row equam-hover " data-toggle="collapse" href="#processNew">
+            <div class="col-sm-12 lead">Procesos sin asignar ( {{ processNew.length }} )</div>
         </div>
-    </div>
+    
 
-    <div id="processNew" class="collapse">
-        <!-- cabecera -->
-        <div class="border-bottom p-1 mt-1 equam-hover bg-light">
-            <div class="row">
-                <div class="col-sm-1">#</div>
-                <div class="col-sm-1">Estado</div>
-                <div class="col-sm-3">Producto</div>
-                <div class="col-sm-2">Productor</div>
-                <div class="col-sm-2">Receptor</div>
-                <div class="col-sm-1">Vigencia</div>
-                <div class="col-sm-2">Procesos</div>
-            </div>
-        </div>
-
-        <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processNew">
-            <div class="row" (click)="processEdit(process.id);">
-                <div class="col-md-1">{{process.id}}</div>
-                <div class="col-md-1">{{process.statusid}}</div>
-                <div class="col-md-3">{{process.product.name}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-1">{{process.startdate | date:'MMM/yy'}}</div>
-                <div class="col-md-1">
-                    {{process.product.germ}}
-                    {{process.product.repic1}}
-                    {{process.product.repic2}}
-                    {{process.product.rust}}
+        <div id="processNew" class="">
+            <!-- datos -->
+            <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processNew">
+                <div class="row" (click)="processEdit(process.id);">
+                    <div class="col-md-1">#{{process.id}}</div>
+                    <div class="col-md-2"><app-status-transform [statusid]="process.statusid"></app-status-transform></div>
+                    <div class="col-md-2">{{process.product.name}}</div>
+                    <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
+                    <div class="col-md-2">{{process.destination.name}}</div>
+                    <div class="col-md-2">{{process.startdate | date:'MMMM yyyy'}}</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="border-bottom p-1 mt-3 equam-hover bg-light">
-        <div class="row" data-toggle="collapse" href="#processWorking">
-            <div class="col-sm-12">Procesos asignados ( {{ processWorking.length }} )</div>
+    <div class="border-bottom p-1 mt-3 bg-light">
+        <div class="row equam-hover" data-toggle="collapse" href="#processWorking">
+            <div class="col-sm-12 lead">Procesos asignados ( {{ processWorking.length }} )</div>
         </div>
-    </div>
-
-    <div id="processWorking" class="collapse">
-        <!-- cabecera -->
-        <div class="border-bottom p-1 mt-3 equam-hover bg-light">
-            <div class="row">
-                <div class="col-sm-1">#</div>
-                <div class="col-sm-1">Estado</div>
-                <div class="col-sm-3">Producto</div>
-                <div class="col-sm-2">Productor</div>
-                <div class="col-sm-2">Receptor</div>
-                <div class="col-sm-1">Vigencia</div>
-                <div class="col-sm-2">Procesos</div>
-            </div>
-        </div>
-
-        <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processWorking">
-            <div class="row" (click)="processEdit(process.id);">
-                <div class="col-md-1">{{process.id}}</div>
-                <div class="col-md-1">{{process.statusid}}</div>
-                <div class="col-md-3">{{process.product.name}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-1">{{process.startdate | date:'MMM/yy'}}</div>
-                <div class="col-md-1">
-                    {{process.product.germ}}
-                    {{process.product.repic1}}
-                    {{process.product.repic2}}
-                    {{process.product.rust}}
+    
+        <div id="processWorking" class="">
+            <!-- datos -->
+            <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processWorking">
+                <div class="row" (click)="processEdit(process.id);">
+                    <div class="col-md-1">#{{process.id}}</div>
+                    <div class="col-md-2"><app-status-transform [statusid]="process.statusid"></app-status-transform></div>
+                    <div class="col-md-2">{{process.product.name}}</div>
+                    <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
+                    <div class="col-md-2">{{process.destination.name}}</div>
+                    <div class="col-md-2">{{process.startdate | date:'MMMM yyyy'}}</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="border-bottom p-1 mt-3 equam-hover bg-light">
-        <div class="row" data-toggle="collapse" href="#processToClose">
-            <div class="col-sm-12">Procesos para finalizar ( {{ processToClose.length }} )</div>
+    <div class="border-bottom p-1 mt-3 bg-light" *ngIf="data.roleValidate('root production')">
+        <div class="row equam-hover" data-toggle="collapse" href="#processToClose">
+            <div class="col-sm-12 lead">Procesos para finalizar ( {{ processToClose.length }} )</div>
         </div>
-    </div>
+    
 
-    <div id="processToClose" class="collapse">
-        <!-- cabecera -->
-        <div class="border-bottom p-1 mt-3 equam-hover bg-light">
-            <div class="row">
-                <div class="col-sm-1">#</div>
-                <div class="col-sm-1">Estado</div>
-                <div class="col-sm-3">Producto</div>
-                <div class="col-sm-2">Productor</div>
-                <div class="col-sm-2">Receptor</div>
-                <div class="col-sm-1">Vigencia</div>
-                <div class="col-sm-2">Procesos</div>
-            </div>
-        </div>
-
-        <!-- datos -->
-        <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processToClose">
-            <div class="row" (click)="processEdit(process.id);">
-                <div class="col-md-1">{{process.id}}</div>
-                <div class="col-md-1">{{process.statusid}}</div>
-                <div class="col-md-3">{{process.product.name}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
-                <div class="col-md-1">{{process.startdate | date:'MMM/yy'}}</div>
-                <div class="col-md-1">
-                    {{process.product.germ}}
-                    {{process.product.repic1}}
-                    {{process.product.repic2}}
-                    {{process.product.rust}}
+        <div id="processToClose" class="">
+            <!-- datos -->
+            <div class="border-bottom p-1 my-1 equam-hover animate__animated animate__slideInUp" *ngFor="let process of processToClose">
+                <div class="row" (click)="processEdit(process.id);">
+                    <div class="col-md-1">#{{process.id}}</div>
+                    <div class="col-md-2"><app-status-transform [statusid]="process.statusid"></app-status-transform></div>
+                    <div class="col-md-2">{{process.product.name}}</div>
+                    <div class="col-md-2">{{process.manufacturer.name}} {{process.manufacturer.surname}}</div>
+                    <div class="col-md-2">{{process.destination.name}}</div>
+                    <div class="col-md-2">{{process.startdate | date:'MMMM yyyy'}}</div>
                 </div>
             </div>
         </div>

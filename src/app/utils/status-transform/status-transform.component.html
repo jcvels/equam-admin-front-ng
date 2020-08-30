@@ -1,0 +1,5 @@
+<span *ngFor="let item of parameters">
+    <span *ngIf="item.value == statusid">
+        {{ item.description }} ({{ statusid }})
+    </span>
+</span>

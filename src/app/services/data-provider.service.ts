@@ -5,7 +5,6 @@ import { NotifyService } from './notify.service';
 
 /*
  *    Para cada tabla a consultar se debera agregar:
- *
  *    1) una url en el array routes.
  *    2) crear un Event Emitter.
  *    3) agregar el nombre de la ruta en el swicht-case de la función emitData.
@@ -35,6 +34,7 @@ export class DataProviderService
   plansEventEmitter = new EventEmitter();
   salesEventEmitter = new EventEmitter();
   productionEventEmitter = new EventEmitter();
+  updatesEventEmitter = new EventEmitter();
   
   /* proporciona la ruta correcta en funcion del tipo de consulta --->> TO DO: Mejorar performance utilizando un switch case <<--- */
   private getRoute( name:string )
@@ -58,6 +58,7 @@ export class DataProviderService
       "plans":this.getConfigInfo('apiurl') + "/data/plans/",
       "sales":this.getConfigInfo('apiurl') + "/ops/sales/",
       "production":this.getConfigInfo('apiurl') + "/ops/production/",
+      "updates":this.getConfigInfo('apiurl') + "/ops/production/updates.php"
     };
 
     /* retorna la ruta solicitada */
@@ -83,6 +84,7 @@ export class DataProviderService
       case 'plans':           this.plansEventEmitter.emit( data ); break;
       case 'sales':           this.salesEventEmitter.emit( data ); break;
       case 'production':      this.productionEventEmitter.emit( data ); break;
+      case 'updates':         this.updatesEventEmitter.emit( data ); break;
       default: console.error( "La ruta especificada no se encuentra definida" ); break;
     }
   }

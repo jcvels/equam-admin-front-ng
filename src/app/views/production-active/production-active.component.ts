@@ -11,22 +11,32 @@ export class ProductionActiveComponent implements OnInit {
 
   waiting:number = 0;
 
-  processNew:any;
-  processWorking:any;
-  processToClose:any;
+  processNew:any = [];
+  processWorking:any = [];
+  processToClose:any = [];
 
   manufacturers:any;
   destinations:any;
 
-  constructor( private data:DataProviderService, private router:Router ) { }
+  constructor( public data:DataProviderService, private router:Router ) { }
 
   ngOnInit(): void
   {
     this.data.productionEventEmitter.subscribe( data =>
       {
         this.processNew = data.filter( item => Number( item.statusid ) == 0 );
-        this.processWorking = data.filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 70 );
-        this.processToClose = data.filter( item => Number( item.statusid ) >= 70 && Number( item.statusid )< 100 );
+
+        if ( this.data.roleValidate("productor") )
+        {
+          this.processWorking = data
+            .filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 )
+            .filter( item => item.manufacturerid == this.data.getUserInfo('id') );
+        }
+        else
+        {
+          this.processWorking = data.filter( item => Number( item.statusid ) > 0 && Number( item.statusid ) < 50 );
+        }
+        this.processToClose = data.filter( item => Number( item.statusid ) >= 50 && Number( item.statusid )< 100 );
         this.waiting += 1;
       }
     );

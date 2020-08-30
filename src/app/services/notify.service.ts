@@ -15,6 +15,7 @@ export class NotifyService {
   */
 
   public msgEmitter = new EventEmitter();
+  public confirmEmitter = new EventEmitter();
 
   constructor() { }
 
@@ -33,6 +34,13 @@ export class NotifyService {
     {
       this.msgShow( 0, 'Error al realizar la operación. ' + data.description );
     }
+
+  }
+
+  public confirmAsker()
+  {
+
+    this.msgShow( 2, "Por favor confirme la acción!");
 
   }
 
