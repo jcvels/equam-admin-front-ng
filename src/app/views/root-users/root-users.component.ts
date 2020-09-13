@@ -152,7 +152,7 @@ export class RootUsersComponent implements OnInit {
         "mailsubject":"Recuperación de contraseña",
         "mailsendto":this.formdata.email,
         "mailtitle":"Recuperación de contraseña",
-        "mailmessage":"Te enviamos este correo porque solicitaste la recuperación de tu contraseña. Si no fue así, por favor, contacta inmediatamente al administrador del sistema.<br><br>Para reactivar tu cuenta y configurar una contraseña, por favor, seguí el siguiente enlace.<br><br><a href='localhost/data/users/user-password-set.php?mail=" + this.formdata.email +"'>Establecer contraseña<a><br><br>" 
+        "mailmessage":"Te enviamos este correo porque solicitaste la recuperación de tu contraseña. Si no fue así, por favor, contacta inmediatamente al administrador del sistema.<br><br>Para reactivar tu cuenta y configurar una contraseña, por favor, seguí el siguiente enlace.<br><br><a href='"+ this.data.getConfigInfo('apiurl') +"/data/users/user-password-set.php?mail=" + this.formdata.email +"'>Establecer contraseña<a><br><br>" 
       };
 
       /* envio mensaje de restauración */
