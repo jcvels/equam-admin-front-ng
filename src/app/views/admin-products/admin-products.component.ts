@@ -27,6 +27,12 @@ export class AdminProductsComponent implements OnInit {
   edit( data:String )
   {
     this.formdata = data;
+    this.formdata.unitPrice = this.formdata.price / this.formdata.qtty;
+  }
+
+  calcPrice()
+  {
+    this.formdata.price = this.formdata.unitPrice * this.formdata.qtty;
   }
 
   save()
@@ -58,6 +64,7 @@ export class AdminProductsComponent implements OnInit {
       "description":"",
       "avatar":"0",
       "price":"",
+      "unitPrice": "",
       "qtty":"",
       "frequency":"",
       "term":"",

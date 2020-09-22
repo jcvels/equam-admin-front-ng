@@ -32,6 +32,11 @@ export class AdminPlansComponent implements OnInit {
     this.formdata = data;
   }
 
+  calcPrice()
+  {
+    this.formdata.price = this.formdata.unitPrice * this.formdata.qtty;
+  }
+
   save()
   {
     /* nuevo valor */
@@ -61,6 +66,7 @@ export class AdminPlansComponent implements OnInit {
       "description":"",
       "avatar":"0",
       "price":"",
+      "unitPrice":"",
       "qtty":"",
       "frequency":"",
       "term":"",

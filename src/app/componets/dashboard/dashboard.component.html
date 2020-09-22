@@ -1,12 +1,12 @@
 <div class="container mt-3">
 
     <div>
-        <h5 class="card-title display-4 animate__animated animate__pulse">Hola, {{user.name}}!</h5>
+        <h5 class="card-title display-4 animate__animated animate__pulse">Hola, {{username}}!</h5>
         <p class="card-text lead">Hoy es un buen día para plantar un árbol</p>
     </div>
 
     <!-- basic dashboard -->
-    <div class="card-deck mt-4">
+    <div class="card-deck mt-4" *ngIf="data.roleValidate('root sales production')">
 
         <div class="card bg-light">
             <div class="card-body">
@@ -15,8 +15,55 @@
                         <h1 class="equam-color text-center"><i class="fas fa-tree"></i></h1>
                     </div>
                     <div class="col-8">
-                        <h2 class="card-text mb-0">300</h2>
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesPlantados}}</h2>
                         <p class="card-text text-muted">árboles plantados</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-map-marked-alt"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesAsignados}}</h2>
+                        <p class="card-text text-muted">árboles asignados</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-search-location"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesSinAsignar}}</h2>
+                        <p class="card-text text-muted">árboles sin asignar</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+    </div>
+
+    <!-- production dashboard -->
+    <div class="card-deck mt-4" *ngIf="data.roleValidate('root sales production')">
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-tree"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesSinProductor}}</h2>
+                        <p class="card-text text-muted">sin productor</p>
                     </div>
                 </div>               
             </div>
@@ -29,8 +76,8 @@
                         <h1 class="equam-color text-center"><i class="fab fa-pagelines"></i></h1>
                     </div>
                     <div class="col-8">
-                        <h2 class="card-text mb-0">1452</h2>
-                        <p class="card-text text-muted">árboles listos</p>
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesEnProduccion}}</h2>
+                        <p class="card-text text-muted">en producción</p>
                     </div>
                 </div>               
             </div>
@@ -43,8 +90,116 @@
                         <h1 class="equam-color text-center"><i class="fas fa-seedling"></i></h1>
                     </div>
                     <div class="col-8">
-                        <h2 class="card-text mb-0">23569</h2>
-                        <p class="card-text text-muted">árboles creciendo</p>
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesAsignarDestino}}</h2>
+                        <p class="card-text text-muted">asignar destino</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-seedling"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesPlantacion}}</h2>
+                        <p class="card-text text-muted">plantar</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+    </div>
+
+    <!-- productor dashboard -->
+    <div class="card-deck mt-4" *ngIf="data.roleValidate('productor')">
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-spa"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesGerminacion}}</h2>
+                        <p class="card-text text-muted">germinación</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-seedling"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesRepique1}}</h2>
+                        <p class="card-text text-muted">primer repique</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fab fa-pagelines"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesRepique2}}</h2>
+                        <p class="card-text text-muted">segundo repique</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-tree"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.qttyArbolesRustificacion}}</h2>
+                        <p class="card-text text-muted">rustificaión</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+    </div>
+
+    <!-- productor dashboard -->
+    <div class="card-deck mt-4" *ngIf="data.roleValidate('root')">
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-database"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.tamanoBaseDatosGB}}</h2>
+                        <p class="card-text text-muted">GB Base de datos</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <h1 class="equam-color text-center"><i class="fas fa-table"></i></h1>
+                    </div>
+                    <div class="col-8">
+                        <h2 class="card-text mb-0">{{dashData.registrosBaseDatos}}</h2>
+                        <p class="card-text text-muted">N° registros</p>
                     </div>
                 </div>               
             </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
@@ -11,14 +12,32 @@ export class RootProfileComponent implements OnInit {
   waiting:boolean = true;
   formdata:any;
   apiurl:string;
+  onEdit: string = null;
+  showControls:boolean = false;
 
-  constructor( private data:DataProviderService ) { }
+  constructor
+  (
+    private data:DataProviderService,
+    private routeActive: ActivatedRoute, 
+    private router:Router
+  ) { }
 
   ngOnInit(): void
   {
     this.clearForm();
     this.data.userEventEmitter.subscribe( data => { this.formdata = data[0]; this.waiting = false; } )
-    this.data.listOne( 'user', this.data.user.id )
+
+    /* obtengo paramotro ID enviado al componente por route y disparo la consulta de información de produccion */
+    this.routeActive.params.subscribe( (params:Params) =>
+      {
+        let userId;
+        if( params.id == '0' ) { userId = this.data.getUserInfo('id'); } 
+
+        else { userId = params.id; this.showControls = true }
+
+        this.data.listOne( 'user', userId )
+      }
+    )
 
     this.apiurl = this.data.getConfigInfo('apiurl');
   }
@@ -63,8 +82,22 @@ export class RootProfileComponent implements OnInit {
   /* recive el id seleccionado y guarda en formdata */
   receiveAvatarId( $event )
   {
-    this.formdata.avatar = $event;
-    console.log( $event );
+    /* cargo la imagen en el update correspondiente y envio actualización a la api */
+    switch( this.onEdit )
+    {
+      case 'avatar':    this.formdata.avatar = $event;  break;
+      case 'img1':      this.formdata.img1 = $event;    break;
+      case 'img2':      this.formdata.img2 = $event;    break;
+      default:          console.error( "Image to edit not selected" );
+    }
+
+    /* limpio el flag onEdit */
+    this.onEdit = "";
+  }
+
+  close()
+  {
+    this.router.navigateByUrl('/admin-manufacturers');
   }
 
   /* clear */
@@ -84,6 +117,8 @@ export class RootProfileComponent implements OnInit {
       "city": "",
       "postal": "",
       "province": "",
+      "lat": "",
+      "lon": "",
       "root": "",
       "admin": "",
       "sales": "",

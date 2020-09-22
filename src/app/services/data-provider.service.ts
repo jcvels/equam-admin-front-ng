@@ -35,6 +35,7 @@ export class DataProviderService
   salesEventEmitter = new EventEmitter();
   productionEventEmitter = new EventEmitter();
   updatesEventEmitter = new EventEmitter();
+  dashboardsEventEmitter = new EventEmitter();
   
   /* proporciona la ruta correcta en funcion del tipo de consulta --->> TO DO: Mejorar performance utilizando un switch case <<--- */
   private getRoute( name:string )
@@ -50,6 +51,7 @@ export class DataProviderService
       "config":this.getConfigInfo('apiurl') + "/data/config/",
       "images":this.getConfigInfo('apiurl') + "/data/images/",
       "imgSel":this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id') + "&limit=10",
+      "myImages":this.getConfigInfo('apiurl') + "/data/images/?userid=" + this.getUserInfo('id'),
       "manufacturers":this.getConfigInfo('apiurl') + "/data/manufacturers/",
       "parameters":this.getConfigInfo('apiurl') + "/data/parameters/",
       "destinations":this.getConfigInfo('apiurl') + "/data/destinations/",
@@ -61,7 +63,8 @@ export class DataProviderService
       "productionActual":this.getConfigInfo('apiurl') + "/ops/production/?filter=actual",
       "productionHistory":this.getConfigInfo('apiurl') + "/ops/production/?filter=history",
       "productionFuture":this.getConfigInfo('apiurl') + "/ops/production/?filter=future",
-      "updates":this.getConfigInfo('apiurl') + "/ops/production/updates.php"
+      "updates":this.getConfigInfo('apiurl') + "/ops/production/updates.php",
+      "dashboard":this.getConfigInfo('apiurl') + "/data/dashboard/?filter=" + this.getUserInfo('id')
     };
 
     /* retorna la ruta solicitada */
@@ -79,6 +82,7 @@ export class DataProviderService
       case 'config':            this.configEventEmitter.emit( data );         break;
       case 'images':            this.imagesEventEmitter.emit( data );         break;
       case 'imgSel':            this.imagesEventEmitter.emit( data );         break;
+      case 'myImages':          this.imagesEventEmitter.emit( data );         break;
       case 'manufacturers':     this.manufacturersEventEmitter.emit( data );  break;
       case 'parameters':        this.parametersEventEmitter.emit( data );     break;
       case 'destinations':      this.destinationsEventEmitter.emit( data );   break;
@@ -91,6 +95,7 @@ export class DataProviderService
       case 'productionHistory': this.productionEventEmitter.emit( data );     break;
       case 'productionFuture':  this.productionEventEmitter.emit( data );     break;
       case 'updates':           this.updatesEventEmitter.emit( data );        break;
+      case 'dashboard':         this.dashboardsEventEmitter.emit( data );     break;
       default: console.error( "RUTA NO DEFINIDA" ); break;
     }
   }

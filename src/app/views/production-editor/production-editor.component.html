@@ -15,21 +15,21 @@
 
 <div class="container mt-3">
 
-    <div class="border-bottom mt-3 bg-light">
+    <div class="mt-3 bg-light">
         <div class="row equam-hover" data-toggle="collapse" href="#info">
             <div class="col-sm-12 lead">Información general</div>
         </div>
                     
         <div class="row p-1 mt-1 bg-light" id="info">
-            <div class="col-sm-2">Identificador: <span class="equam-color">#{{formdata.id}}</span> </div>
-            <div class="col-sm-2">Inicio: <span class="equam-color">{{formdata.startdate | date:'MMMM yyyy'}}</span> </div>
+            <div class="col-sm-1">ID: <span class="equam-color">#{{formdata.id}}</span> </div>
+            <div class="col-sm-3">Inicio: <span class="equam-color">{{formdata.startdate | date:'MMMM yyyy'}}</span> </div>
             <div class="col-sm-3">Estado: <span class="equam-color"><app-status-transform [statusid]="formdata.statusid"></app-status-transform></span> </div>
             <div class="col-sm-3">Árbol: <span class="equam-color strong">{{formdata.product.name}}</span> </div>
-            <div class="col-sm-2">Cantidad: <strong class="equam-color strong">{{formdata.product.qtty}}</strong> </div>
+            <div class="col-sm-2">Cantidad: <strong class="equam-color strong">{{formdata.productQtty}}</strong> </div>
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
+    <div class="mt-3 bg-light" *ngIf="data.roleValidate('root production')">
         <div class="row equam-hover" data-toggle="collapse" href="#sales">
             <div class="col-sm-12 lead">Información venta y cliente</div>
         </div>
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
+    <div class="mt-3 bg-light" *ngIf="data.roleValidate('root production')">
         <div class="row equam-hover" data-toggle="collapse" href="#asign">
             <div class="col-sm-12 lead">Asignación</div>
         </div>
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light">
+    <div class="mt-3 bg-light">
         <div class="row equam-hover" data-toggle="collapse" href="#proccess">
             <div class="col-sm-12 lead">Procesos</div>
         </div>
@@ -169,7 +169,7 @@
         </div>
     </div>
 
-    <div class="border-bottom mt-3 bg-light" *ngIf="data.roleValidate('root production')">
+    <div class="mt-3 bg-light" *ngIf="data.roleValidate('root production')">
         <div class="row equam-hover" data-toggle="collapse" href="#close">
             <div class="col-sm-12 lead">Destino</div>
         </div>

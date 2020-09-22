@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class AdminManufacturersComponent implements OnInit {
   showprofile:boolean = false;
   newprofile:boolean = false;
 
-  constructor( private data:DataProviderService ) { }
+  constructor( private data:DataProviderService, private router:Router ) { }
 
   ngOnInit(): void
   {
@@ -29,11 +30,7 @@ export class AdminManufacturersComponent implements OnInit {
 
   edit( data:any )
   {
-    this.formdata = data;
-    this.newprofile = false;
-    this.showprofile = true;
-
-    document.getElementById("profile").style.display = 'block';
+    this.router.navigateByUrl( '/root-profile/' + data );
   }
 
   new()

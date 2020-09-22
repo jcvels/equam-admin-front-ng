@@ -56,13 +56,13 @@
                     <input id="id" type="text" hidden="" [(ngModel)]="formdata.id" > 
 
                     <div class="row mt-2">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group- lineal">
                                 <label class="control-label" for="name">Nombre</label>
                                 <input id="name" type="text" class="form-control input-md" required="" [(ngModel)]="formdata.name">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group- lineal">
                                 <label class="control-label" for="name">Empresa</label>
                                 <select id="frequency" class="form-control" required="" [(ngModel)]="formdata.companyid">
@@ -70,13 +70,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <label class="control-label" for="price">Precio</label>
+                        <div class="col-sm-3">
+                            <label class="control-label" for="price">Precio unitario</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">$</div>
                                 </div>
-                                <input id="price" type="number" class="form-control input-md" required="" [(ngModel)]="formdata.price">
+                                <input id="price" type="number" class="form-control input-md" required="" (change)="calcPrice();" (keyup)="calcPrice();" [(ngModel)]="formdata.unitPrice">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="control-label" for="price">Precio total</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input id="price" type="number" class="form-control input-md " required="" disabled="" [(ngModel)]="formdata.price">
                             </div>
                         </div>
                     </div>
@@ -85,7 +94,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="qtty">Cantidad</label>
-                                <input id="qtty" type="number" min="0" class="form-control input-md" required="" [(ngModel)]="formdata.qtty">
+                                <input id="qtty" type="number" min="0" class="form-control input-md" required="" (change)="calcPrice();" (keyup)="calcPrice();" [(ngModel)]="formdata.qtty">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -113,10 +122,10 @@
                                 <img src="../../../assets/equam-logo.jpg" class="img-fluid p-1" *ngIf="formdata.avatar == '0' ">
                             </div>
                         </div-->
-                        <div class="col-sm-6">
+                        <div class="col-sm-9">
                             <div class="form-group" style="height: 100%;">
                                 <label class="control-label" for="description">Descripción</label>
-                                <textarea name="description" class="form-control" maxlength="65000" [(ngModel)]="formdata.description"></textarea>
+                                <textarea name="description" class="form-control" maxlength="65000" style="height: 200px;" [(ngModel)]="formdata.description"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -168,10 +177,13 @@
                         <span class="equam-hover" data-toggle="collapse" data-target="#info" aria-expanded="false"><i class="fas fa-info-circle"></i> Información</span>
                     </div>
     
-                    <div class="collapse border rounder p-1 bg-light mt-2" id="info">
+                    <div class="border rounder p-1 bg-light mt-2" id="info">
                         
-                        <p class="small">Creado {{ formdata.creation }}</p>
-                        <p class="small">Modificado {{ formdata.lastchange }}</p>
+                        <p class="small">
+                            SKU: {{ formdata.id }}<br>
+                            Creado: {{ formdata.creation }}<br>
+                            Modificado: {{ formdata.lastchange }}
+                        </p>
                         
                     </div>
                     

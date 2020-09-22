@@ -10,13 +10,29 @@ export class RootImagesComponent implements OnInit {
 
   waiting:boolean = true;
   images:any;
+  apiurl:string;
 
   constructor( private data:DataProviderService ) { }
 
   ngOnInit(): void
   {
     this.data.imagesEventEmitter.subscribe( data => { this.images = data; this.waiting = false; } );
-    this.data.list( 'images' );
+    this.apiurl = this.data.getConfigInfo('apiurl');
+    this.listImages();
+  }
+
+  /* eliminar archivo de la galería */
+  delete( id:string)
+  {
+    if( confirm("¿Quiere borrar la imágen?"))
+    this.data.delete( 'images', id);
+    this.listImages();
+  }
+
+  listImages()
+  {
+    if( this.data.roleValidate( "root" ) ) { this.data.list( 'images' );}
+    else { this.data.list( 'myImages' );}
   }
 
 }
