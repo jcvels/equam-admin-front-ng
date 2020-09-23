@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class RootLoginComponent implements OnInit {
 
   waiting:boolean = false;
-  username:string = "root";
-  password:string = "Pa$$w0rd";
+  username:string = null;
+  password:string = null;
 
   constructor( private data:DataProviderService, private router:Router ) { }
 
